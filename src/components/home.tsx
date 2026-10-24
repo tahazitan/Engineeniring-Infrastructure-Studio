@@ -1,5 +1,7 @@
 'use client';
-import {useMemo,useState} from 'react';
+import {useMemo,useState,useEffect} from 'react';
+import gsap from 'gsap';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import {ArrowUpRight,ArrowRight,Layers3,Network,ShieldCheck,Workflow,Activity,Database,TerminalSquare} from 'lucide-react';
 import type {Project} from '@/lib/types';
@@ -8,6 +10,12 @@ const icons=[Network,Layers3,ShieldCheck,Activity,Database,TerminalSquare];
 const offerings=[{num:'01',title:'Network Architecture',desc:'Enterprise switching, routing, WAN connectivity, segmentation and performance diagnostics.',icon:Network},{num:'02',title:'Systems Engineering',desc:'Identity, Linux & Windows administration, virtualization and reliable infrastructure operations.',icon:Layers3},{num:'03',title:'Cybersecurity Engineering',desc:'Firewall policies, security monitoring, controlled analysis and resilient system design.',icon:ShieldCheck},{num:'04',title:'Monitoring & Automation',desc:'Telemetry, detection, configurations, validation workflows and operational observability.',icon:Activity}];
 export default function Home({projects,studioEnabled}:{projects:Project[];studioEnabled:boolean}){
  const [filter,setFilter]=useState('All');
+ useEffect(()=>{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ gsap.registerPlugin(ScrollTrigger);
+ const elements=gsap.utils.toArray<HTMLElement>('.section-top, .offer, .project-card, .about-layout');
+ const effects=elements.map((el)=>gsap.fromTo(el,{y:34,opacity:.28},{y:0,opacity:1,duration:.9,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 92%',once:true}}));
+ return ()=>{effects.forEach(effect=>effect.kill());};
+ },[filter]);
  const domains=['All',...new Set(projects.map(x=>x.domain))];
  const filtered=useMemo(()=>filter==='All'?projects:projects.filter(p=>p.domain===filter),[filter,projects]);
  return <main className="shell" id="top">
