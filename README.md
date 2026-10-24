@@ -108,6 +108,7 @@ Visit `http://127.0.0.1:3000`.
 
 - [Local macOS setup](docs/LOCAL_SETUP.md)
 - [Platform architecture](docs/PLATFORM_ARCHITECTURE.md)
+- [Live Containerlab Runner and SSH tunnel](docs/LAB_RUNNER_SETUP.md)
 - [Deployment architecture](docs/DEPLOYMENT.md)
 - [Brand identity](docs/BRAND_SYSTEM.md)
 - [FRRouting / OSPF lab](labs/enterprise-network)

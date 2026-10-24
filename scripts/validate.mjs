@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {existsSync,readFileSync} from 'node:fs';
-const required=['package.json','next.config.ts','docker-compose.yml','infra/postgres/schema.sql','src/app/globals.css','src/app/page.tsx','src/app/studio/page.tsx','src/app/studio/[slug]/page.tsx','src/components/hero-scene.tsx','src/components/studio-workbench.tsx','src/lib/catalog.ts','src/app/api/evidence/[slug]/route.ts','labs/enterprise-network/topology.clab.yml','labs/enterprise-network/scripts/verify.sh','.env.example'];
+const required=['package.json','next.config.ts','docker-compose.yml','infra/postgres/schema.sql','src/app/globals.css','src/app/page.tsx','src/app/studio/page.tsx','src/app/studio/[slug]/page.tsx','src/components/hero-scene.tsx','src/components/studio-workbench.tsx','src/lib/catalog.ts','src/app/api/evidence/[slug]/route.ts','labs/enterprise-network/topology.clab.yml','labs/enterprise-network/scripts/verify.sh','.env.example','lab-runner/agent.mjs','lab-runner/agent.test.mjs','src/lib/lab-runner.ts','src/app/api/labs/enterprise-multisite/route.ts','infra/postgres/migrations/002_lab_runs.sql'];
 required.forEach(path=>assert(existsSync(path),'Missing required file: '+path));
 const source=readFileSync('src/lib/catalog.ts','utf8');
 const slugs=[...source.matchAll(/slug:'([a-z0-9-]+)'/g)].map(x=>x[1]);

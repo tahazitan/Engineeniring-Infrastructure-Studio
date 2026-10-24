@@ -11,7 +11,7 @@ flowchart LR
     N --> A[Next.js API Routes]
     A --> P[(PostgreSQL: Projects & Tests)]
     A --> O[(MinIO: Evidence Artifacts)]
-    E[Linux VM] --> L[Containerlab + FRRouting]
+    A --> R[Local SSH Tunnel → Linux VM Lab Runner]\n    R --> L[Containerlab + FRRouting]
     L --> V[verify.sh & command outputs]
     V --> U
 ```

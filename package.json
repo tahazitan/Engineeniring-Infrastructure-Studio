@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start -H 127.0.0.1",
     "check": "tsc --noEmit",
-    "test": "node scripts/validate.mjs"
+    "test": "node scripts/validate.mjs && node --test lab-runner/agent.test.mjs"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",

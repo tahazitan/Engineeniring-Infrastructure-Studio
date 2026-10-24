@@ -43,6 +43,10 @@ Named Docker volumes preserve your work across container restarts.
 3. Upload a test command log in Evidence Vault. Confirm the filename and SHA-256 digest appear.
 4. Export the project JSON as an additional local archive.
 
+### Execute Linux network labs from the Studio
+
+The complete [SSH tunnel + Linux Runner integration guide](LAB_RUNNER_SETUP.md) covers one-command operations, lab result history and automatic evidence archiving.
+
 ### Real networking labs
 The provided Containerlab/FRRouting lab lives at [labs/enterprise-network](../labs/enterprise-network). Use an **isolated Linux environment** for the network container lifecycle. On an Intel Mac, a light Linux VM is appropriate for the base lab; avoid running many heavyweight security and Windows lab VMs simultaneously.
 
