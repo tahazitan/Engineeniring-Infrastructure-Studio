@@ -14,9 +14,15 @@ export async function GET(_request:Request,{params}:Ctx){
  if(row.state==='running'){
   let job:LabRun;
   try{job=await runnerRequest<LabRun>('/v1/runs/'+id)}
-  catch(e){return NextResponse.json({run:{...row,status:'running'},warning:e instanceof Error?e.message:'Runner offline'});}
+  catch(e){
+   const reason=e instanceof Error?e.message:'Runner offline';
+   if(reason.includes('Run not found')){
+    await db.query("UPDATE lab_runs SET state='failed',finished_at=now(),stderr=$2,updated_at=now() WHERE id=$1 AND state='running'",[id,'Agent restarted; operation status could not be recovered. Inspect the Linux VM before retrying.']);
+    job={id,project:'enterprise-multisite',action:row.action,status:'failed',started_at:row.started_at,finished_at:new Date().toISOString(),exit_code:null,stdout:row.stdout||'',stderr:'Agent restarted',timed_out:false};
+   }else return NextResponse.json({run:{...row,status:'running'},warning:reason});
+  }
   if(job.status!=='running'){
-   await db.query(`UPDATE lab_runs SET state=$2,finished_at=$3,exit_code=$4,stdout=$5,stderr=$6,timed_out=$7,updated_at=now() WHERE id=$1`,
+   await db.query(`UPDATE lab_runs SET state=$2,finished_at=COALESCE(finished_at,$3),exit_code=$4,stdout=$5,stderr=$6,timed_out=$7,updated_at=now() WHERE id=$1`,
    [id,job.status,job.finished_at,job.exit_code,job.stdout,job.stderr,job.timed_out]);
   }
  }
