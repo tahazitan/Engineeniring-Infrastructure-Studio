@@ -102,7 +102,15 @@ npm run dev
 
 Visit `http://127.0.0.1:3000`.
 
-**Environment:** configure local connection details in `.env.local`. Project source, configuration templates and deployment instructions live in version control; personal credentials are maintained in your own local environment.
+**Environment:** configure local connection details in `.env`. Project source, configuration templates and deployment instructions live in version control; personal credentials are maintained in your own local environment.
+
+## Integrated Lab Operations
+
+The **Enterprise Multi-Site** workbench includes an operational Containerlab runner for isolated Linux labs. From the **LAB OPERATIONS** tab, you can deploy the FRRouting topology, inspect node status, verify OSPF routes and reachability, and destroy the lab. Each operation is journaled in PostgreSQL and its completed result archived in MinIO with a SHA-256 digest.
+
+[Set up the Linux VM runner & SSH tunnel](docs/LAB_RUNNER_SETUP.md). Once local Docker services, the Linux agent and SSH tunnel are active, run `npm run doctor` on macOS to check connectivity. `npm test` also exercises the Lab Runner unit tests in CI.
+
+The 12 project workspaces provide a common architecture/configuration/verification/evidence workflow; live Containerlab execution is currently implemented for the Enterprise Multi-Site profile.
 
 ## Engineering Documentation
 
