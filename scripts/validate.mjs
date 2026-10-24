@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {existsSync,readFileSync} from 'node:fs';
+const required=['package.json','next.config.ts','docker-compose.yml','infra/postgres/schema.sql','src/app/globals.css','src/app/page.tsx','src/app/studio/page.tsx','src/app/studio/[slug]/page.tsx','src/components/hero-scene.tsx','src/components/studio-workbench.tsx','src/lib/catalog.ts','src/app/api/evidence/[slug]/route.ts','labs/enterprise-network/topology.clab.yml','labs/enterprise-network/scripts/verify.sh','.env.example'];
+required.forEach(path=>assert(existsSync(path),'Missing required file: '+path));
+const source=readFileSync('src/lib/catalog.ts','utf8');
+const slugs=[...source.matchAll(/slug:'([a-z0-9-]+)'/g)].map(x=>x[1]);
+assert.equal(slugs.length,12,'Expected twelve engineering blueprints');
+assert.equal(new Set(slugs).size,slugs.length,'Project slugs must be unique');
+const schema=readFileSync('infra/postgres/schema.sql','utf8');
+for(const name of ['projects','evidence'])assert(schema.includes('TABLE IF NOT EXISTS '+name),'Missing database table '+name);
+const api=readFileSync('src/app/api/projects/[slug]/route.ts','utf8');
+assert(api.includes("test_plan.every"),'Project validation checks required');
+const evidence=readFileSync('src/app/api/evidence/[slug]/route.ts','utf8');
+assert(evidence.includes("createHash('sha256')"),'Evidence hashing required');
+const ignored=readFileSync('.gitignore','utf8');
+assert(ignored.includes('.env'),'Sensitive env files must be ignored');
+console.log('Studio structure, 12 blueprints, persistence, checks, evidence and lab files validated.');

@@ -84,14 +84,19 @@ The engineering environment and the portfolio share a consistent brand identity:
 
 ## Local Development
 
+[Complete macOS setup guide](docs/LOCAL_SETUP.md) · [Brand system](docs/BRAND_SYSTEM.md) · [Containerlab enterprise network](labs/enterprise-network)
+
 The application is designed to run from a local development environment on macOS, with networking labs executed through Linux where required.
 
 ```bash
 git clone https://github.com/tahazitan/Engineeniring-Infrastructure-Studio.git
 cd Engineeniring-Infrastructure-Studio
-cp .env.example .env.local
+cp .env.example .env
+# Configure your local credentials and database URL in .env
 docker compose up -d
 npm install
+npm test
+npm run check
 npm run dev
 ```
 
