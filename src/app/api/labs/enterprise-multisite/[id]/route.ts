@@ -29,16 +29,19 @@ export async function GET(_request:Request,{params}:Ctx){
    const evidenceId=randomUUID(),key='enterprise-multisite/'+evidenceId+'/lab-run-'+id+'.json';
    const client=minio();const name=await bucket(client);
    await client.putObject(name,key,content,content.length,{'Content-Type':'application/json'});
-   await db.query('BEGIN');
+   const tx=await db.connect();
    try{
-    const locked=await db.query('SELECT evidence_id FROM lab_runs WHERE id=$1 FOR UPDATE',[id]);
+    await tx.query('BEGIN');
+    const locked=await tx.query('SELECT evidence_id FROM lab_runs WHERE id=$1 FOR UPDATE',[id]);
     if(!locked.rows[0].evidence_id){
-     await db.query('INSERT INTO evidence(id,project_slug,filename,content_type,bytes,sha256,object_key,caption) VALUES($1,$2,$3,$4,$5,$6,$7,$8)',
+     await tx.query('INSERT INTO evidence(id,project_slug,filename,content_type,bytes,sha256,object_key,caption) VALUES($1,$2,$3,$4,$5,$6,$7,$8)',
       [evidenceId,'enterprise-multisite','lab-run-'+id+'.json','application/json',content.length,hash,key,'Containerlab '+row.action+' execution: '+row.state]);
-     await db.query('UPDATE lab_runs SET evidence_id=$2 WHERE id=$1',[id,evidenceId]);
+     await tx.query('UPDATE lab_runs SET evidence_id=$2 WHERE id=$1',[id,evidenceId]);
+    }else{
+     await client.removeObject(name,key).catch(()=>{});
     }
-    await db.query('COMMIT');
-   }catch(e){await db.query('ROLLBACK');throw e}
+    await tx.query('COMMIT');
+   }catch(e){await tx.query('ROLLBACK');throw e}finally{tx.release()}
   }catch{
    // Keep the operation result in PostgreSQL; the next poll retries evidence registration.
   }
