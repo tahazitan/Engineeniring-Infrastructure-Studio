@@ -104,6 +104,14 @@ Visit `http://127.0.0.1:3000`.
 
 **Environment:** configure local connection details in `.env.local`. Project source, configuration templates and deployment instructions live in version control; personal credentials are maintained in your own local environment.
 
+## Engineering Documentation
+
+- [Local macOS setup](docs/LOCAL_SETUP.md)
+- [Platform architecture](docs/PLATFORM_ARCHITECTURE.md)
+- [Deployment architecture](docs/DEPLOYMENT.md)
+- [Brand identity](docs/BRAND_SYSTEM.md)
+- [FRRouting / OSPF lab](labs/enterprise-network)
+
 ## Author
 
 **Taha Zitane**  
