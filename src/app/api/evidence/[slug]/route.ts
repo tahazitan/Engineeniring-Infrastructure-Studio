@@ -1,6 +1,6 @@
 import {NextResponse} from 'next/server';
 import {randomUUID,createHash} from 'node:crypto';
-import {bucket,findProject,isPrivate,isSameOrigin,minio,pool} from '@/lib/server';
+import {bucket,findProject,ensureProjectRow,isPrivate,isSameOrigin,minio,pool} from '@/lib/server';
 export const runtime='nodejs';export const dynamic='force-dynamic';
 type Ctx={params:Promise<{slug:string}>};
 const denied=()=>NextResponse.json({error:'Private studio only'},{status:403});
@@ -17,6 +17,7 @@ export async function POST(req:Request,ctx:Ctx){
  const {slug}=await ctx.params;
  if(!/^[a-z0-9-]{2,80}$/.test(slug))return NextResponse.json({error:'Invalid project'},{status:400});
  if(!(await findProject(slug)))return NextResponse.json({error:'Project not found'},{status:404});
+ try{await ensureProjectRow(slug)}catch{return NextResponse.json({error:'Project database unavailable'},{status:503})}
  if(Number(req.headers.get('content-length')||0)>12*1024*1024)return NextResponse.json({error:'Upload exceeds maximum size'},{status:413});
  let form:FormData;try{form=await req.formData()}catch{return NextResponse.json({error:'Expected multipart form data'},{status:400})}
  const file=form.get('file');
