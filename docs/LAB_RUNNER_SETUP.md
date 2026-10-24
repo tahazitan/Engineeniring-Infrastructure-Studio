@@ -133,3 +133,18 @@ curl -H "Authorization: Bearer $(grep '^LAB_RUNNER_TOKEN=' .env | cut -d= -f2-)"
 This runner profile operates the **Enterprise Multi-Site FRRouting / OSPF lab**. The interface and API can be extended with additional named lab profiles, each requiring a separate allowlisted action mapping. The platform's other 11 project workspaces remain available for architecture, configuration, diagnostics and evidence, independently of this runner.
 
 Source lives in GitHub. Secrets and evidence objects stay local. No website or lab is automatically deployed to a public cloud.
+
+
+## Local integration diagnostics
+
+After starting Docker services and opening the SSH tunnel, run on the Mac:
+
+```bash
+npm run doctor
+```
+
+The doctor checks PostgreSQL TCP reachability, MinIO API reachability and the authenticated runner health endpoint, without printing credentials. An offline runner indicates that the Linux agent, SSH tunnel, token or port needs attention.
+
+`npm test` runs **both** the repository structure validation and the Node.js Lab Runner unit tests. The GitHub Actions workflow executes these tests on every push. These unit tests use an injected mock process launcher; to establish a real lab result, deploy and verify from the **isolated Linux VM** through the Studio.
+
+**Local access:** the workbench is enabled only when `STUDIO_MODE=private` is explicitly set in your private `.env`. Do not expose port 3000 or the runner to an untrusted network; private mode is intended for loopback-only local use, not internet-facing authentication.

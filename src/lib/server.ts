@@ -4,7 +4,7 @@ import type {Project} from './types';
 import {projects} from './catalog';
 const globalDb=globalThis as unknown as {studioPool?:Pool};
 export function pool():Pool {if(!process.env.DATABASE_URL)throw new Error('DATABASE_URL not configured');return globalDb.studioPool??=new Pool({connectionString:process.env.DATABASE_URL,max:4,connectionTimeoutMillis:2200});}
-export const isPrivate=()=>process.env.STUDIO_MODE!=='public';
+export const isPrivate=()=>process.env.STUDIO_MODE==='private';
 export function isSameOrigin(req:Request):boolean {const origin=req.headers.get('origin');if(!origin)return false;try{return new URL(origin).host===new URL(req.url).host&&new URL(origin).protocol===new URL(req.url).protocol;}catch{return false;}}
 export async function listProjects():Promise<Project[]>{const result=await pool().query('SELECT * FROM projects ORDER BY updated_at DESC');if(!result.rowCount)return projects;const stored=result.rows as Project[];const slugs=new Set(stored.map(x=>x.slug));return [...stored,...projects.filter(x=>!slugs.has(x.slug))];}
 export async function findProject(slug:string):Promise<Project|undefined>{try{const result=await pool().query('SELECT * FROM projects WHERE slug=$1',[slug]);if(result.rows[0])return result.rows[0] as Project;}catch{}return projects.find(x=>x.slug===slug);}

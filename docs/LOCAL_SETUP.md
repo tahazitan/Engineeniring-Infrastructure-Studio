@@ -74,3 +74,14 @@ The platform does not publish itself by changing this setting; hosting requires 
 
 ## Repository hygiene
 Commit source code, lab templates, project specs and reusable tests. Keep `.env`, real credentials, customer data and private evidence in locally controlled storage.
+
+
+### Diagnostic command
+
+Once Docker services are running and the optional Linux runner SSH tunnel is connected:
+
+```bash
+npm run doctor
+```
+
+This checks the connectivity of the local database, object storage and runner (when configured). For the full tunnel and VM setup, see [Linux VM Lab Runner](LAB_RUNNER_SETUP.md).
