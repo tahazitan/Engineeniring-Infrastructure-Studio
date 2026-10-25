@@ -1,4 +1,5 @@
 import type {Project} from './types';
+import {referenceTopology} from './reference-topologies';
 type Blueprint={slug:string;title:string;domain:string;summary:string;stack:string[];nodes:string[];objectives:string[];checks:string[]};
 const blueprints:Blueprint[]=[
 {slug:'enterprise-multisite',title:'Enterprise Multi-Site Infrastructure',domain:'Networking',summary:'Headquarters, branch sites, routed WAN, segmented zones and verifiable connectivity.',stack:['Containerlab','FRRouting','OSPF','Linux'],nodes:['HQ Router','WAN Transit','Branch Router','Branch LAN'],objectives:['Build addressing and routing plan','Validate routing convergence and inter-site connectivity'],checks:['OSPF adjacency reaches Full','Remote networks appear in routing table','Branch-to-HQ connectivity is reachable']},
@@ -18,7 +19,7 @@ export const projects:Project[]=blueprints.map(p=>({
 slug:p.slug,title:p.title,domain:p.domain,summary:p.summary,stack:p.stack,objectives:p.objectives,
 checklist:[{id:'architecture',title:'Architecture and addressing reviewed',done:false},{id:'configuration',title:'Configuration committed and versioned',done:false},{id:'diagnostics',title:'Diagnostic measurements recorded',done:false},{id:'evidence',title:'Evidence and report attached',done:false}],
 test_plan:p.checks.map((title,i)=>({id:'test-'+(i+1),title,expected:title,status:'pending'})),
-topology:{nodes:p.nodes.map((label,i)=>({id:'n'+i,position:{x:i%2*310,y:Math.floor(i/2)*170},data:{label}})),edges:[{id:'e0',source:'n0',target:'n1'},{id:'e1',source:'n1',target:'n2'},{id:'e2',source:'n2',target:'n3'}]},
+topology:referenceTopology(p.slug)||{nodes:p.nodes.map((label,i)=>({id:'n'+i,position:{x:i%2*310,y:Math.floor(i/2)*170},data:{label}})),edges:[{id:'e0',source:'n0',target:'n1'},{id:'e1',source:'n1',target:'n2'},{id:'e2',source:'n2',target:'n3'}]},
 configuration:'# '+p.title+'\n# Configuration workspace\n# Add tested device and host configurations here.\n',
 status:'planned',public_visible:false}));
 export const domains=[...new Set(projects.map(p=>p.domain))];

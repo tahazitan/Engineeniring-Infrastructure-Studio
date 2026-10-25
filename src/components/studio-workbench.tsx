@@ -8,7 +8,8 @@ import type {Project} from '@/lib/types';
 import TechnologyLogo,{getLogo} from './technology-logo';
 import {gns3ToStudio,inferKind} from '@/lib/gns3';
 const Editor=dynamic(()=>import('@monaco-editor/react'),{ssr:false,loading:()=> <textarea className="config-loading" readOnly value="Loading configuration editor…"/>});
-type StudioEdge=Edge&{sourcePort?:string;targetPort?:string};
+type StudioEdge=Edge&{sourcePort?:string;targetPort?:string;linkRole?:string};
+const visualEdge=(e:Project['topology']['edges'][number]):StudioEdge=>({ ...e, label:[e.linkRole,[e.sourcePort,e.targetPort].filter(Boolean).join(' ↔ ')].filter(Boolean).join(' · ')||undefined, labelStyle:{fontSize:10,fill:'#254f67',fontWeight:600}, labelBgStyle:{fill:'#f4faff',stroke:'#b6d1de',strokeWidth:1}, labelBgPadding:[8,5], labelBgBorderRadius:3,style:{stroke:/VPN|IPsec|tunnel/i.test(e.linkRole||'')?'#8d65c2':'#3c829f',strokeWidth:2.5}});
 type Evidence={id:string;filename:string;bytes:number;sha256:string;caption:string;created_at:string};
 type Tab='architecture'|'configuration'|'verification'|'evidence'|'lab';
 type LabAction='deploy'|'status'|'verify'|'destroy';
@@ -23,13 +24,17 @@ function EquipmentNode({data}:NodeProps){
  return <div className={'equipment-node kind-'+kind}><Handle type="target" position={Position.Top}/>
  <span className="eq-head">{logo?<img src={'/tech/'+logo+'.svg'} alt="" width="18" height="18"/>:<Icon size={18} strokeWidth={1.5}/>} {kind.toUpperCase()}</span>
  <strong>{label}</strong>{platform&&<small className="eq-platform">{platform}</small>}
+ <span className="equipment-ip">{String(data.ip||'IP not configured')}</span>
+ <span className="equipment-zone">{String(data.zone||'Unassigned zone')}{data.vlan?' · VLAN '+String(data.vlan):''}</span>
  <span className="eq-ports"><i/><i/><i/><i/><i/></span><Handle type="source" position={Position.Bottom}/></div>;
 }
 const nodeTypes={equipment:EquipmentNode};
 export default function Workbench({initial}:{initial:Project}){
  const [draft,setDraft]=useState<Project>(initial);
  const [nodes,setNodes,onNodesChange]=useNodesState<Node>(initial.topology.nodes.map(n=>({...n,type:'equipment'})));
- const [edges,setEdges,onEdgesChange]=useEdgesState<StudioEdge>(initial.topology.edges.map(e=>({...e,label:[e.sourcePort,e.targetPort].filter(Boolean).join(' ↔ ')||undefined})));
+ const [edges,setEdges,onEdgesChange]=useEdgesState<StudioEdge>(initial.topology.edges.map(visualEdge));
+ const [selectedNodeId,setSelectedNodeId]=useState<string|null>(null);
+ const [selectedEdgeId,setSelectedEdgeId]=useState<string|null>(null);
  const [active,setActive]=useState<Tab>('architecture');
  const [message,setMessage]=useState('Workspace ready. Use Save to persist changes to PostgreSQL.');
  const [busy,setBusy]=useState(false);
@@ -38,6 +43,10 @@ export default function Workbench({initial}:{initial:Project}){
  const [file,setFile]=useState<File|null>(null);
  const [fileInputKey,setFileInputKey]=useState(0);
  const [newLabel,setNewLabel]=useState('');
+ const selectedDevice=nodes.find(n=>n.id===selectedNodeId);
+ const selectedLink=edges.find(e=>e.id===selectedEdgeId);
+ const changeLink=(key:'sourcePort'|'targetPort'|'linkRole',value:string)=>setEdges(old=>old.map(e=>e.id!==selectedEdgeId?e:visualEdge({...e,[key]:value})));
+ const changeDevice=(key:string,value:string)=>setNodes(old=>old.map(n=>n.id===selectedNodeId?{...n,data:{...n.data,[key]:value}}:n));
  const [gnsProjects,setGnsProjects]=useState<{project_id:string;name:string}[]>([]);
  const [gnsSelected,setGnsSelected]=useState('');
  const [gnsStatus,setGnsStatus]=useState('GNS3 is not connected');
@@ -102,8 +111,8 @@ export default function Workbench({initial}:{initial:Project}){
  };
 
  const current=useMemo<Project>(()=>({...draft,topology:{
-  nodes:nodes.map(({id,position,data})=>({id,position,data:{label:String(data.label||'Device'),...(data.kind?{kind:String(data.kind)}:{}),...(data.platform?{platform:String(data.platform)}:{})}})),
-  edges:edges.map(({id,source,target,animated,sourcePort,targetPort})=>({id,source,target,animated,...(sourcePort?{sourcePort}:{}),...(targetPort?{targetPort}:{})}))
+  nodes:nodes.map(({id,position,data})=>({id,position,data:{label:String(data.label||'Device'),...Object.fromEntries(['kind','platform','ip','zone','vlan','role'].filter(k=>data[k]).map(k=>[k,String(data[k])]))}})),
+  edges:edges.map(({id,source,target,animated,sourcePort,targetPort,linkRole})=>({id,source,target,animated,...(sourcePort?{sourcePort}:{}),...(targetPort?{targetPort}:{}),...(linkRole?{linkRole}:{})}))
  }}),[draft,nodes,edges]);
  const doneTests=current.test_plan.filter(x=>x.status==='passed').length;
  const doneChecklist=current.checklist.filter(x=>x.done).length;
@@ -135,7 +144,7 @@ export default function Workbench({initial}:{initial:Project}){
   const f=event.target.files?.[0];if(!f)return;
   try{const imported=JSON.parse(await f.text()) as Project;
   if(imported.slug!==slug||!Array.isArray(imported.topology?.nodes)||!Array.isArray(imported.topology?.edges)||!Array.isArray(imported.test_plan))throw Error('Select a valid project JSON with a matching slug.');
-  setDraft(imported);setNodes(imported.topology.nodes.map(n=>({...n,type:'equipment'})));setEdges(imported.topology.edges.map(e=>({...e,label:[e.sourcePort,e.targetPort].filter(Boolean).join(' ↔ ')||undefined})));
+  setDraft(imported);setNodes(imported.topology.nodes.map(n=>({...n,type:'equipment'})));setEdges(imported.topology.edges.map(visualEdge));
   setMessage('Project imported. Select Save to persist changes.');}
   catch(e){setMessage(e instanceof Error?e.message:'Invalid JSON file');}
   event.target.value='';
@@ -144,7 +153,7 @@ export default function Workbench({initial}:{initial:Project}){
   const name=newLabel.trim();if(!name)return;
   setNodes(existing=>[...existing,{id:'device-'+Date.now(),type:'equipment',position:{x:100+(existing.length%4)*140,y:120+(existing.length%3)*100},data:{label:name}}]);setNewLabel('');
  };
- const applyTopology=(topology:ReturnType<typeof gns3ToStudio>)=>{setNodes(topology.nodes.map(n=>({...n,type:'equipment'})));setEdges(topology.edges.map(e=>({...e,label:[e.sourcePort,e.targetPort].filter(Boolean).join(' ↔ ')||undefined})));setMessage('GNS3 topology imported. Review and select Save project to persist.');setGnsStatus('Topology imported · '+topology.nodes.length+' nodes / '+topology.edges.length+' links');};
+ const applyTopology=(topology:ReturnType<typeof gns3ToStudio>)=>{setNodes(topology.nodes.map(n=>({...n,type:'equipment'})));setEdges(topology.edges.map(visualEdge));setMessage('GNS3 topology imported. Review and select Save project to persist.');setGnsStatus('Topology imported · '+topology.nodes.length+' nodes / '+topology.edges.length+' links');};
  const importGns3=async(event:React.ChangeEvent<HTMLInputElement>)=>{
   const f=event.target.files?.[0];if(!f)return;
   try{if(f.size>3000000)throw Error('GNS3 project is too large (maximum 3 MB)');const raw=JSON.parse(await f.text());applyTopology(gns3ToStudio(raw))}
@@ -174,7 +183,7 @@ export default function Workbench({initial}:{initial:Project}){
   <div role="status" aria-live="polite" className="wb-message">{message}</div>
   <nav className="wb-tabs" aria-label="Engineering workbench sections">{tabs.map(([key,label,icon])=><button className={active===key?'wb-tab active':'wb-tab'} onClick={()=>setActive(key)} key={key}>{icon} {label}</button>)}</nav>
   <section className="wb-content">
-  {active==='architecture'&&<div className="wb-two"><div className="wb-panel"><div className="wb-panel-header"><b>NETWORK ARCHITECTURE / INTERACTIVE TOPOLOGY</b><span>{nodes.length} nodes · {edges.length} links</span></div><div className="flow-surface"><ReactFlow nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} nodeTypes={nodeTypes} fitView colorMode="light" minZoom={.2} maxZoom={2} deleteKeyCode={['Backspace','Delete']}><Background color="#d4e1ea" gap={22} size={1}/><Controls/><MiniMap zoomable pannable nodeColor="#4e8daa" maskColor="rgba(235,243,248,.7)"/></ReactFlow></div></div><aside className="wb-aside"><h3>Architecture editor</h3><p>Drag equipment to arrange the topology. Connect output handles to input handles; select a node or link and press Delete to remove it.</p><label htmlFor="new-device">New equipment label</label><div className="wb-add"><input id="new-device" className="wb-input" value={newLabel} onChange={e=>setNewLabel(e.target.value)} onKeyDown={e=>{if(e.key==='Enter')addNode()}} placeholder="e.g. Branch firewall"/><button onClick={addNode} aria-label="Add equipment"><Plus size={16}/></button></div><div className="gns-import"><h3>GNS3 / Network Topology</h3><p>Import a native .gns3 project diagram or connect to your local GNS3 server. Imported devices and links become editable in the topology workspace.</p>
+  {active==='architecture'&&<div className="wb-two"><div className="wb-panel"><div className="wb-panel-header"><b>NETWORK ARCHITECTURE / INTERACTIVE TOPOLOGY</b><span>{nodes.length} nodes · {edges.length} links</span></div><div className="flow-surface"><ReactFlow nodes={nodes} edges={edges} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} onConnect={onConnect} onNodeClick={(_event,node)=>{setSelectedNodeId(node.id);setSelectedEdgeId(null)}} onEdgeClick={(_event,edge)=>{setSelectedEdgeId(edge.id);setSelectedNodeId(null)}} onPaneClick={()=>{setSelectedNodeId(null);setSelectedEdgeId(null)}} nodeTypes={nodeTypes} fitView colorMode="light" minZoom={.2} maxZoom={2} deleteKeyCode={['Backspace','Delete']}><Background color="#d4e1ea" gap={22} size={1}/><Controls/><MiniMap zoomable pannable nodeColor="#4e8daa" maskColor="rgba(235,243,248,.7)"/></ReactFlow></div></div><aside className="wb-aside"><h3>Architecture editor</h3><p>Drag equipment to arrange the topology. Connect output handles to input handles; select a node or link and press Delete to remove it.</p><label htmlFor="new-device">New equipment label</label><div className="wb-add"><input id="new-device" className="wb-input" value={newLabel} onChange={e=>setNewLabel(e.target.value)} onKeyDown={e=>{if(e.key==='Enter')addNode()}} placeholder="e.g. Branch firewall"/><button onClick={addNode} aria-label="Add equipment"><Plus size={16}/></button></div>{selectedDevice&&<div className="equipment-inspector"><h3>Selected equipment / properties</h3>{([['label','Device label'],['platform','Vendor / platform'],['ip','IP address / prefix'],['zone','Security zone / site'],['vlan','VLAN ID'],['role','Engineering notes']] as [string,string][]).map(([key,label])=><label key={key}>{label}<input className="wb-input" value={String(selectedDevice.data[key]||'')} onChange={e=>changeDevice(key,e.target.value)} maxLength={key==='role'?250:90}/></label>)}<p>Click another node to edit it. Save project to persist properties.</p></div>}{selectedLink&&<div className="equipment-inspector"><h3>Selected connection / interfaces</h3><p>{selectedLink.source} → {selectedLink.target}</p>{([['sourcePort','Source interface'],['targetPort','Destination interface'],['linkRole','Link type / protocol']] as [ 'sourcePort'|'targetPort'|'linkRole',string][]).map(([key,label])=><label key={key}>{label}<input className="wb-input" value={String(selectedLink[key]||'')} onChange={e=>changeLink(key,e.target.value)} maxLength={key==='linkRole'?120:64}/></label>)}<p>Save the project to persist cable and interface metadata.</p></div>}<div className="gns-import"><h3>GNS3 / Network Topology</h3><p>Import a native .gns3 project diagram or connect to your local GNS3 server. Imported devices and links become editable in the topology workspace.</p>
  <label className="wb-control gns-file">Import .gns3 file<input type="file" hidden accept=".gns3,.json" onChange={importGns3}/></label>
  <a className="wb-control" href="/examples/taha-network-demo.gns3" download>Download demo topology</a>
  <button className="wb-control" onClick={()=>void connectGns3()}>Connect GNS3 Server</button>

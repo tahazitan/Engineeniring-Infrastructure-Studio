@@ -37,7 +37,7 @@ An integrated workspace built around the infrastructure lifecycle:
 
 **ARCHITECT → CONFIGURE → DEPLOY → DIAGNOSE → VERIFY → DOCUMENT**
 
-- **Architecture & Topology Studio:** interactive node/link diagrams and GNS3 diagram import.
+- **Architecture & Topology Studio:** vendor-aware React Flow nodes, professional network diagrams and authenticated GNS3 import.
 - **Configuration Workbench:** configuration assets and structured project specifications.
 - **Lab Operations:** Docker, Containerlab and dedicated engineering-lab workflows.
 - **Verification Center:** documented test plans, diagnostic results and acceptance criteria.
@@ -148,3 +148,9 @@ Run `npm run audit:local` to exercise HTTP routes, project persistence, cross-or
 **TAHA INFRASTRUCTURE STUDIO**
 
 </div>
+
+### Reference network diagrams and vendor assets
+
+The 12 project blueprints now include **8–9 example devices** each, including infrastructure zones, RFC1918 sample addressing, VLAN IDs, technology/platform names and connection interfaces. The topology explorer uses authentic SVG logos when locally available (Cisco, Fortinet, Palo Alto, Linux, Proxmox, PostgreSQL and others), with neutral equipment-role symbols otherwise; it does not invent vendor branding. A node inspector allows engineers to edit device metadata and save it to PostgreSQL. Legacy untouched four-node starter diagrams are upgraded at read time without rewriting stored projects or overwriting customized user diagrams.
+
+These are **reference designs**, not evidence of completed production deployments. Real lab state still depends on GNS3 or the isolated Linux lab runner, with verification recorded separately. The personal portrait is displayed in the template hero and fully in the About section using the user-supplied image.

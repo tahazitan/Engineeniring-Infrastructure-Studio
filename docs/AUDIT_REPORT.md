@@ -57,3 +57,9 @@ Keep `.env`, real configurations, any client data and private evidence out of th
 ## Template-first iteration (October 2026)
 
 Replaced the earlier Three.js and GSAP presentation with a semantic React/CSS recreation of the original user-supplied purple cyber landing page. Added the locally supplied portrait (`TAHAGITHUB.png` resized to WebP), a conceptual animated network overlay and an interactive topology selector populated from existing project models. Removed the obsolete hero-scene component and its Three.js dependencies. No AI image generation was used. Animated topology paths are illustrative and do not represent live packets.
+
+## Real-world engineering topology revision
+
+Replaced four-node stock placeholders across twelve project profiles with richer **reference network architectures** containing 8–9 vendor/platform-aware nodes, private sample IP subnets, security zones, VLAN IDs and meaningful interface/link labels. The implementation adds SVG vendor marks for supported local sources, with neutral role iconography when a verified logo is unavailable. The architecture workbench exposes editable node properties and preserves metadata in JSON exports and PostgreSQL round-trips. Untouched old diagrams are enhanced in memory on reads; any custom topology and saved project work remain authoritative. All sample networks are unverified designs, not live deployment claims.
+
+Use `node scripts/browser-smoke.mjs` for an interactive Chromium CDP test on the user’s authorized Mac; this checks all 12 pages and explorer switching. Note that lazy-loaded images that have not been scrolled into view should not be reported as missing.
