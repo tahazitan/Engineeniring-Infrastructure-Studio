@@ -5,7 +5,7 @@ import {Activity,Cloud,CloudCog,Cpu,Database,HardDrive,LifeBuoy,LockKeyhole,Moni
  */
 const known:[RegExp,string][]=[
  [/palo\s*alto/i,'paloalto'],[/forti(?:net|gate)?/i,'fortinet'],[/gns\s*3/i,'gns3'],
- [/zabbix/i,'zabbix'],[/microsoft/i,'microsoft'],[/windows(?:\s+server)?/i,'windows'],
+ [/zabbix/i,'zabbix'],[/wazuh/i,'wazuh'],[/microsoft/i,'microsoft'],[/windows(?:\s+server)?/i,'windows'],
  [/wireshark/i,'wireshark'],[/proxmox/i,'proxmox'],[/cisco/i,'cisco'],
  [/postgres(?:ql)?/i,'postgresql'],[/kubernetes|k8s/i,'kubernetes'],
  [/node(?:\.|\s*)js/i,'nodejs'],[/express(?:\.js)?/i,'express'],[/next(?:\.|\s*)js/i,'nextjs'],
