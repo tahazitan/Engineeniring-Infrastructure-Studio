@@ -2,7 +2,7 @@
 
 ## Requirements
 - macOS with **Node.js 22**, npm and Git
-- Docker Desktop for macOS (PostgreSQL and MinIO data services)
+- Docker Desktop for macOS (PostgreSQL and RustFS (S3-compatible) data services)
 - A modern desktop browser with WebGL enabled
 - For real Containerlab network environments: an isolated Linux machine or Linux virtual machine with Docker Engine
 
@@ -22,10 +22,11 @@ npm install
 npm test
 npm run check
 npm run dev
+# In another terminal: npm run audit:local
 ```
 
 Open **http://127.0.0.1:3000**. Navigate to **/studio** for the engineering workspace.
-The MinIO administrative console is accessible locally at **http://127.0.0.1:9001**.
+The RustFS administrative console is accessible locally at **http://127.0.0.1:9001**.
 The PostgreSQL service listens on **127.0.0.1:5434**.
 
 ### Daily development
@@ -68,7 +69,7 @@ The platform does not publish itself by changing this setting; hosting requires 
 
 ## Troubleshooting
 - **Database offline**: run `docker compose ps`, check `DATABASE_URL` and `docker compose logs postgres`.
-- **Evidence service unavailable**: check `MINIO_ACCESS_KEY`, `MINIO_SECRET_KEY`, `docker compose logs minio`, and keep the MinIO endpoint local.
+- **Evidence service unavailable**: check `MINIO_ACCESS_KEY`, `MINIO_SECRET_KEY`, `docker compose logs minio`, and keep the S3-compatible storage endpoint local.
 - **No WebGL**: ensure hardware acceleration is enabled in the browser.
 - **Network lab fails**: run Containerlab in Linux and consult `labs/enterprise-network/docs/troubleshooting.md`.
 
@@ -85,3 +86,15 @@ npm run doctor
 ```
 
 This checks the connectivity of the local database, object storage and runner (when configured). For the full tunnel and VM setup, see [Linux VM Lab Runner](LAB_RUNNER_SETUP.md).
+
+### GNS3 integration
+
+See [GNS3 Integration](GNS3_INTEGRATION.md) for importing authenticated local-server projects, importing `.gns3` diagrams and reviewing the sample topology.
+
+### One-command restart on the configured Mac
+
+```bash
+npm run start:local
+```
+
+This starts Docker Desktop if necessary, PostgreSQL and S3-compatible storage, starts the local GNS3 server if installed and not already running, and launches the loopback-only Express + Next.js application. It does not configure or run an optional Linux VM lab runner.

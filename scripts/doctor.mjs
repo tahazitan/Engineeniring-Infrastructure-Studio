@@ -10,7 +10,7 @@ if (existsSync(resolve('.env'))) {
   console.error('Missing local .env. Copy .env.example to .env and configure it.');
   process.exit(1);
 }
-const log=(name,ok,detail)=>{checks.push(ok);console.log((ok?'PASS':'FAIL')+'  '+name+' — '+detail)};
+const log=(name,ok,detail,required=true)=>{if(required)checks.push(ok);console.log((ok?'PASS':required?'FAIL':'WARN')+'  '+name+' — '+detail)};
 async function tcp(name,host,port){
   return new Promise(ok=>{
     const client=connect({host,port});
@@ -31,7 +31,7 @@ try{
   await tcp('PostgreSQL',db.hostname,Number(db.port||5432));
 }catch(e){log('PostgreSQL',false,e.message)}
 const storageHost=process.env.MINIO_ENDPOINT||'127.0.0.1';
-await tcp('MinIO',storageHost,Number(process.env.MINIO_PORT||9000));
+await tcp('S3 storage',storageHost,Number(process.env.MINIO_PORT||9000));
 try{
  const runner=new URL(process.env.LAB_RUNNER_URL||'http://127.0.0.1:4401');
  if(runner.protocol!=='http:'||!['127.0.0.1','localhost','[::1]'].includes(runner.hostname))throw Error('Runner must be reachable through localhost tunnel');
@@ -40,7 +40,7 @@ try{
  const response=await fetch(runner.origin+'/v1/health',{headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(2500)});
  if(!response.ok)throw Error('runner HTTP '+response.status);
  const health=await response.json();
- log('Lab runner',health.status==='ready',health.status==='ready'?'authenticated and ready':'unexpected health status');
-}catch(e){log('Lab runner',false,e.message)}
-console.log('\n'+checks.filter(Boolean).length+'/'+checks.length+' integration checks passed.');
+ log('Lab runner',health.status==='ready',health.status==='ready'?'authenticated and ready':'unexpected health status',false);
+}catch(e){log('Lab runner',false,e.message+' (optional Linux VM integration)',false)}
+console.log('\n'+checks.filter(Boolean).length+'/'+checks.length+' core integration checks passed.');
 if(checks.some(x=>!x))process.exitCode=1;

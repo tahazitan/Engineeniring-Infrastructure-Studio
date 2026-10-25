@@ -11,3 +11,8 @@ out/
 *.key
 local-data/
 /evidence/private/
+
+*.tsbuildinfo
+docker-compose.yml.audit-backup
+
+.next-audit/

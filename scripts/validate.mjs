@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {existsSync,readFileSync} from 'node:fs';
-const required=['package.json','next.config.ts','docker-compose.yml','infra/postgres/schema.sql','src/app/globals.css','src/app/page.tsx','src/app/studio/page.tsx','src/app/studio/[slug]/page.tsx','src/components/hero-scene.tsx','src/components/studio-workbench.tsx','src/lib/catalog.ts','src/app/api/evidence/[slug]/route.ts','labs/enterprise-network/topology.clab.yml','labs/enterprise-network/scripts/verify.sh','.env.example','lab-runner/agent.mjs','lab-runner/agent.test.mjs','src/lib/lab-runner.ts','src/app/api/labs/enterprise-multisite/route.ts','infra/postgres/migrations/002_lab_runs.sql'];
+const required=['package.json','next.config.ts','docker-compose.yml','infra/postgres/schema.sql','src/app/globals.css','src/app/page.tsx','src/app/studio/page.tsx','src/app/studio/[slug]/page.tsx','src/components/hero-scene.tsx','src/components/studio-workbench.tsx','src/lib/catalog.ts','src/app/api/evidence/[slug]/route.ts','labs/enterprise-network/topology.clab.yml','labs/enterprise-network/scripts/verify.sh','.env.example','lab-runner/agent.mjs','lab-runner/agent.test.mjs','src/lib/lab-runner.ts','src/app/api/labs/enterprise-multisite/route.ts','infra/postgres/migrations/002_lab_runs.sql','server.mjs','src/app/api/gns3/route.ts','src/app/api/storage/route.ts','src/lib/gns3.ts','src/lib/object-storage.ts','src/components/technology-logo.tsx','public/examples/taha-network-demo.gns3','docs/GNS3_INTEGRATION.md','scripts/integration-audit.mjs','scripts/start-local.sh'];
 required.forEach(path=>assert(existsSync(path),'Missing required file: '+path));
 const source=readFileSync('src/lib/catalog.ts','utf8');
 const slugs=[...source.matchAll(/slug:'([a-z0-9-]+)'/g)].map(x=>x[1]);
@@ -14,4 +14,6 @@ const evidence=readFileSync('src/app/api/evidence/[slug]/route.ts','utf8');
 assert(evidence.includes("createHash('sha256')"),'Evidence hashing required');
 const ignored=readFileSync('.gitignore','utf8');
 assert(ignored.includes('.env'),'Sensitive env files must be ignored');
-console.log('Studio structure, 12 blueprints, persistence, checks, evidence and lab files validated.');
+const demo=JSON.parse(readFileSync('public/examples/taha-network-demo.gns3','utf8'));
+assert(demo.topology.nodes.length>=4&&demo.topology.links.length>=3,'GNS3 example must contain connected devices');
+console.log('Studio structure, 12 blueprints, GNS3 sample, persistence, checks, evidence and lab files validated.');

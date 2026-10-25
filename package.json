@@ -3,27 +3,31 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -H 127.0.0.1",
+    "dev": "node server.mjs",
     "build": "next build",
-    "start": "next start -H 127.0.0.1",
+    "start": "NODE_ENV=production node server.mjs",
     "check": "tsc --noEmit",
     "test": "node scripts/validate.mjs && node --test lab-runner/agent.test.mjs",
-    "doctor": "node scripts/doctor.mjs"
+    "doctor": "node scripts/doctor.mjs",
+    "audit:local": "node scripts/integration-audit.mjs",
+    "start:local": "bash scripts/start-local.sh"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1156.0",
     "@monaco-editor/react": "^4.6.0",
     "@react-three/drei": "^10.0.0",
     "@react-three/fiber": "^9.0.0",
     "@xyflow/react": "^12.0.0",
+    "express": "^5.3.0",
     "gsap": "^3.12.0",
     "lucide-react": "^0.468.0",
-    "minio": "^8.0.0",
     "next": "^15.3.0",
     "pg": "^8.13.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "simple-icons": "^16.35.0",
     "three": "^0.175.0",
-    "zod": "^3.24.0"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
@@ -34,6 +38,10 @@
     "typescript": "^5.7.0"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": ">=22.0.0"
+  },
+  "overrides": {
+    "dompurify": "^3.4.17",
+    "postcss": "^8.5.31"
   }
 }
