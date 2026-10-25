@@ -5,6 +5,7 @@ import {Activity,Cloud,CloudCog,Cpu,Database,HardDrive,LifeBuoy,LockKeyhole,Moni
  */
 const known:[RegExp,string][]=[
  [/palo\s*alto/i,'paloalto'],[/forti(?:net|gate)?/i,'fortinet'],[/gns\s*3/i,'gns3'],
+ [/zabbix/i,'zabbix'],[/microsoft/i,'microsoft'],[/windows(?:\s+server)?/i,'windows'],
  [/wireshark/i,'wireshark'],[/proxmox/i,'proxmox'],[/cisco/i,'cisco'],
  [/postgres(?:ql)?/i,'postgresql'],[/kubernetes|k8s/i,'kubernetes'],
  [/node(?:\.|\s*)js/i,'nodejs'],[/express(?:\.js)?/i,'express'],[/next(?:\.|\s*)js/i,'nextjs'],
@@ -35,7 +36,7 @@ function iconFor(name:string):LucideIcon {
 }
 export default function TechnologyLogo({name,compact=false}:{name:string;compact?:boolean}){
  const logo=getLogo(name),Fallback=iconFor(name);
- return <span className={'technology-logo'+(compact?' compact':'')+(logo?' has-vendor':' neutral-tech')} title={name} aria-label={logo?name+' official technology symbol':name+' technology'}>
+ return <span className={'technology-logo'+(compact?' compact':'')+(logo?' has-vendor':' neutral-tech')} title={name} aria-label={logo?name+' technology logo':name+' technology'}>
   {logo?<img src={'/tech/'+logo+'.svg'} alt="" width={compact?44:68} height={compact?44:68} loading="lazy" decoding="async"/>:<span className="tech-fallback-mark" aria-hidden="true"><Fallback size={compact?35:57} strokeWidth={1.65}/></span>}
   <span className="tech-label">{name}</span>
  </span>;
