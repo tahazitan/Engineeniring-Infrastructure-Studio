@@ -1,1 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><rect width="96" height="96" rx="18" fill="#071722"/><path d="M21 26h54v9H53v39H43V35H21z" fill="#a1f1df"/><circle cx="75" cy="72" r="7" fill="#f1c18b"/><path d="M16 80h22" stroke="#466a74" stroke-width="3"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Taha IT Solutions">
+<rect width="96" height="96" rx="17" fill="#102e44"/>
+<rect x="9" y="9" width="78" height="78" rx="12" fill="none" stroke="#7738ff" stroke-width="3"/>
+<path d="M20 25h57v12H54v39H42V37H20z" fill="#ffffff"/>
+<rect x="66" y="65" width="12" height="12" rx="2" fill="#03ceef"/>
+</svg>

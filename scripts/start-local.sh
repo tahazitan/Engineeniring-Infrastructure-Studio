@@ -3,7 +3,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 # macOS Docker Desktop places its credential helper outside the default PATH.
-export PATH="/Applications/Docker.app/Contents/Resources/bin:$PATH"
+export PATH="/Applications/GNS3.app/Contents/MacOS:/Applications/GNS3.app/Contents/MacOS/qemu/bin:/Applications/Docker.app/Contents/Resources/bin:$PATH"
 if ! docker info >/dev/null 2>&1; then
   if command -v open >/dev/null 2>&1; then open -a Docker; fi
   echo "Starting Docker Desktop..."

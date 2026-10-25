@@ -1,44 +1,48 @@
-# GNS3 integration — Taha Infrastructure Studio
+# Direct GNS3 Integration — Native Project Building
 
-## Supported workflows
+## Confirmed local environment
 
-The **Architecture / Topology** tab in each engineering project has two options:
+- GNS3 Server 2.2.61 on `127.0.0.1:3080`
+- Native GNS3 templates are discoverable through the authenticated local API, including installed vendor appliances.
+- The Mac version bundles GNS3's Dynamips, VPCS, Ubridge and Qemu executables.
+- `npm run start:local` includes the GNS3 macOS executable paths in PATH when starting the local server.
+- The GNS3 project **Taha IT Solutions - Client Network Starter Lab** was actually created on the Mac with a switch and two VPCS nodes, connected by two links. No simulation node was started by the Studio.
 
-1. **Connect GNS3 Server** checks the local GNS3 v2 REST API at `127.0.0.1:3080`, lists projects, and imports the selected project's devices and links into the React Flow editor.
-2. **Import .gns3 file** imports a locally selected GNS3 JSON topology without requiring an active GNS3 server. A downloadable demonstration diagram is available in the sidebar.
+## Workflows inside /studio/[project] → Topology
 
-Imported node roles (router, switch, firewall, client, server, cloud) and link interface labels are preserved when **Save project** is selected. Saved data is stored in PostgreSQL; imported diagrams are editable snapshots, **not** remote edits to the original GNS3 project. The app does not start or stop GNS3 nodes automatically.
+The **Live GNS3 Builder** panel now supports:
 
-## Starting GNS3 Server on the connected Mac
+1. Connect to the localhost GNS3 Server, list native projects and installed device templates.
+2. Create a new GNS3 project with a custom name, or open an existing project.
+3. Add native **Ethernet Switch** and **VPCS** nodes, or instantiate any GNS3 template already installed and configured on the Mac.
+4. Connect devices by specifying source and destination port numbers (adapter 0 by default). Use free ports and ensure the template actually has those interfaces.
+5. Load the selected native GNS3 project's nodes/links into the editable Studio React Flow canvas.
+6. Save the Studio project to PostgreSQL, or edit and export configuration notes from the adjacent Configuration tab.
 
-The tested GNS3 application version is 2.2.61. The server binary supplied by GNS3 is:
+Importing **.gns3** files works separately from the live API. The live GNS3 project and Studio topology snapshot remain intentionally separate to avoid unexpected device changes.
+
+## API contract
+
+- `GET /api/gns3?action=status`: GNS3 version/connection health
+- `GET /api/gns3?action=projects`: available GNS3 projects
+- `GET /api/gns3?action=templates`: installed device templates
+- `GET /api/gns3?action=topology&project_id=<UUID>`: inspect nodes and links
+- `POST /api/gns3` permitted actions: `create_project`, `open_project`, `add_builtin_node`, `add_template_node`, `connect_link`, `update_node`
+
+**Security:** private mode only, validated Same-Origin POST requests, request schemas limiting actions and coordinate/port numbers, loopback-only GNS3 server connection. No arbitrary command execution, file upload, remote URL or shell interface is exposed. Credential details come from the Mac's local GNS3 configuration and never appear in the UI.
+
+**Device configurations:** Studio's Monaco editor can maintain and export configuration text. Running vendor CLI commands or injecting startup configurations automatically is **not implemented**: apply them through authorized native GNS3 consoles / device template procedures after reviewing compatibility. A configured template does not guarantee the emulator, device image or license is available. Missing emulator binaries generate a GNS3 error; check the GNS3 Server logs and bundled executable paths.
+
+**Simulation boundaries:** adding/connecting nodes is a real GNS3 database operation. The nodes are not automatically powered on and no network reachability or security policy is claimed until verified in an actual lab session.
+
+## Tests
 
 ```bash
-/Applications/GNS3.app/Contents/MacOS/gns3server --host 127.0.0.1 --port 3080
-```
-
-Keep the API bound to loopback. The server uses GNS3's **existing, locally configured Basic authentication**. The Studio server obtains this authentication from GNS3's local configuration on the same Mac; credentials are never embedded in frontend HTML or committed to Git.
-
-For an offline diagram example, open `/examples/taha-network-demo.gns3` in the browser or download it from the Architecture sidebar.
-
-## Verifying
-
-```bash
-curl http://127.0.0.1:3000/api/gns3
-curl 'http://127.0.0.1:3000/api/gns3?action=projects'
+npm run start:local
 npm run audit:local
+npm test
 ```
 
-`/api/gns3` should show `connected:true` when the GNS3 server is authenticated and reachable. An empty projects list indicates no available GNS3 projects, not a connection failure.
+The integration audit verifies local GNS3 status, projects, templates, CSRF protection and validated request rejection. The live Starter Lab was separately exercised end-to-end through the Studio API with real project/node/link creation. Re-running the general audit does not create or delete native projects.
 
-## Lab execution limitations
-
-GNS3 topology import and real FRRouting/Containerlab execution are separate. The Enterprise Multi-Site Lab Operations tab uses a restricted Linux VM runner documented in [LAB_RUNNER_SETUP.md](LAB_RUNNER_SETUP.md). It requires an isolated Linux machine or VM and a localhost SSH tunnel. A connected GNS3 Server does not imply that the Linux lab runner is available.
-
-## Operations & security
-
-- GNS3 integration API is **read-only** and private-mode only.
-- API target is hardcoded to loopback; clients cannot specify arbitrary URLs.
-- Project identifiers are validated before backend requests.
-- GNS3 configuration secrets remain on the local machine.
-- Do not expose the private Studio to the public Internet without additional authentication.
+For Containerlab/FRRouting deployment and remote Linux VMs, refer to [LAB_RUNNER_SETUP.md](LAB_RUNNER_SETUP.md); that runner is a distinct optional execution backend.

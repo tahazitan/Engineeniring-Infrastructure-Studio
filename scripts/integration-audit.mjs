@@ -50,6 +50,14 @@ try{
  check(response.ok&&body.evidence.some(e=>e.id===uploadedId),'Evidence register listing');
  ({response,body}=await get('/api/gns3'));
  console.log(response.ok&&body.connected?'PASS  GNS3 local API connected':'WARN  GNS3 local API offline (optional)');
+ if(response.ok&&body.connected){
+  const t=await get('/api/gns3?action=templates');check(t.response.ok&&Array.isArray(t.body.templates),'Live GNS3 local templates API');
+  const x=await get('/api/gns3?action=projects');check(x.response.ok&&Array.isArray(x.body.projects),'Live GNS3 native projects API');
+  const blocked=await fetch(base+'/api/gns3',{method:'POST',headers:{Origin:'https://evil.example','Content-Type':'application/json'},body:JSON.stringify({action:'create_project',name:'Never-Create-This'})});
+  check(blocked.status===403,'GNS3 native writes reject forged Origin');
+  const invalid=await fetch(base+'/api/gns3',{method:'POST',headers:{Origin:base,'Content-Type':'application/json'},body:JSON.stringify({action:'invalid'})});
+  check(invalid.status===400,'GNS3 actions reject invalid operations');
+ }
  const staticLogo=await fetch(base+'/tech/cisco.svg');
  check(staticLogo.ok,'Locally served technology brand assets');
  const sample=await fetch(base+'/examples/taha-network-demo.gns3');

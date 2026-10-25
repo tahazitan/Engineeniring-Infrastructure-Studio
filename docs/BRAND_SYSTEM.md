@@ -1,38 +1,46 @@
-# Taha Infrastructure Studio — Template-Based Design System
+# Taha IT Solutions — Brand & SEO Guidelines
 
-## Source of the visual direction
+## Purpose and positioning
 
-The frontend is rebuilt from the actual user-supplied **Cyber Monday landing page template**, whose editable Illustrator/EPS source files and JPEG preview are held locally in the user's Downloads directory.
+**Business identity:** Taha IT Solutions — independent, engineer-led remote IT services. This is professional branding; it does not assert legal incorporation, a workforce, a physical office or customer numbers.
 
-This implementation does **not** place the whole reference screenshot behind the website. The layout, typography, borders, buttons, geometric elements and content are recreated as native React/HTML/CSS/SVG components.
+**Audience:** businesses and professionals needing remote support, network connectivity, Windows/Linux server assistance, firewall/VPN guidance, monitoring and security-oriented infrastructure work. Target clients include Morocco, Francophone markets and international freelancers/projects using Fiverr or Upwork.
 
-The visible hero uses the user's own local portrait file (`TAHAGITHUB.png`), resized into `public/template/taha-portrait.webp` using ImageMagick without altering the subject. The original couple photo from the commercial template is not published. The coded shapes, typography and geometry follow the user-provided editable `.ai` / `.eps` and JPEG template reference.
+**Voice:** practical, understandable and client-focused. Promises describe scope and processes, not guaranteed remediation, production uptime or unverifiable achievements.
 
-Moving network paths and diagram accents are coded SVG/CSS animations representing conceptual topology; they are not live packet telemetry.
+## Visual source
 
-## Visual tokens
+The business-facing pages retain the essential design direction of the owner's original purple Cyber Monday template: violet strip and accents, deep navy background, cyan controls, pixel headline typography and a rounded hero portrait. The old decorative / AI-looking marketing topology illustration was **removed**, along with its unused home components.
 
-| Token | Usage |
-|---|---|
-| `#7736FF` | Main purple stage / outer background |
-| `#102C43` | Navigation and structural midnight blue |
-| `#263D57` | Hero background tone |
-| `#03CEEF` | Cyan strokes and secondary actions |
-| `#FA3468` | Small chevron accents from the reference |
-| `Poppins` | Interface, nav, paragraphs and section headings |
-| `Press Start 2P` | Hero title, logo signature and counters |
-| `DM Mono` | Network/system metadata |
+The hero and About pages use the owner's newly uploaded **green-polo portrait**, supplied locally as `taha-portrait.webp`. The file was confirmed against the Mac Downloads original by SHA-256 before downsampling and is not AI-generated or retouched.
 
-The typography is loaded through Google Fonts CSS; no local font files are shared.
+- Violet `#7338FF`: primary frame/CTA
+- Navy `#102E44`: main technical identity
+- Cyan `#03CEEF`: signals and secondary links
+- Poppins: body and commercial offer copy
+- Press Start 2P: limited signature display lettering
+- DM Mono: engineering labels and metadata
 
-## Application design
+Vendor and platform logos are local assets under `public/tech/`; vendor trademarks belong to their owners. Topology designs stay in **Projects** and the private **Studio**, where they provide real technical context.
 
-- Landing page: faithful visual structure of the reference, with the user-provided portrait, a fully coded hero, navigation and CTAs
-- Expertise: table-like service rows and authentic technology logos from locally stored SVG files
-- Projects: editable blueprint data summarized as simple technical network schematics, not decorative decorative art
-- Private Studio and workbenches: coordinated navy/purple panels and light engineering topology canvas, preserving live functionality
-- All claims of lab deployment or verification come from stored status/test records, not design decoration
+## Website information architecture
 
-## Platform stack
+- **Home:** useful service proposition, direct CTA, six offers, four-step client process, actual photo and verified technologies.
+- **Services:** per-service purpose, typical deliverables, supported tools and scope/authorization notes.
+- **Projects:** reference infrastructure designs labelled not yet deployed/verified; link to private Studio only in local private mode.
+- **About:** independent professional background, documented employment chronology and accurate education (including the unfinished EMSI year).
+- **Contact:** service brief composer with copy-to-clipboard and direct Fiverr/LinkedIn links. No fake contact address or unsupported live form.
 
-Next.js, React, TypeScript, Node.js, Express.js, React Flow, Monaco, PostgreSQL, GNS3 REST integration and RustFS S3-compatible object storage. No Three.js, React Three Fiber or GSAP visual dependency is required for this template-based direction.
+## SEO strategy
+
+Unique route titles and descriptions target phrases such as `remote IT support`, `Cisco networking`, `Windows Server and Active Directory`, `VPN configuration`, `Linux VPS administration`, `monitoring`, and related French client terminology where appropriate.
+
+Schema.org Person and ProfessionalService entries identify the engineer and the independent service brand, **not** a registered enterprise. No fabricated review ratings, team sizes or awards are included.
+
+- In local/private mode, `robots` correctly prevents indexation.
+- Public mode allows marketing pages but disallows private Studio and APIs.
+- `NEXT_PUBLIC_SITE_URL` must be set to the **verified public deployment origin** before the sitemap lists canonical pages. Avoid indexing a local-only URL.
+- Landing content is semantic React/HTML; navigation is accessible, image alt text is meaningful, and visual motion respects reduced-motion settings.
+- Fiverr username and LinkedIn profile links are user-provided. An unverified Upwork profile URL is intentionally not invented.
+
+Public hosting of the marketing frontend should be separate from the local, authenticated GNS3 development environment.

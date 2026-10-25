@@ -63,3 +63,39 @@ Replaced the earlier Three.js and GSAP presentation with a semantic React/CSS re
 Replaced four-node stock placeholders across twelve project profiles with richer **reference network architectures** containing 8–9 vendor/platform-aware nodes, private sample IP subnets, security zones, VLAN IDs and meaningful interface/link labels. The implementation adds SVG vendor marks for supported local sources, with neutral role iconography when a verified logo is unavailable. The architecture workbench exposes editable node properties and preserves metadata in JSON exports and PostgreSQL round-trips. Untouched old diagrams are enhanced in memory on reads; any custom topology and saved project work remain authoritative. All sample networks are unverified designs, not live deployment claims.
 
 Use `node scripts/browser-smoke.mjs` for an interactive Chromium CDP test on the user’s authorized Mac; this checks all 12 pages and explorer switching. Note that lazy-loaded images that have not been scrolled into view should not be reported as missing.
+
+
+## Business-services restructuring — local audit, October 2026
+
+The marketing experience was rebuilt as **Taha IT Solutions** with five client-oriented routes: Home, Services, Projects, About and Contact, while retaining the original purple/navy template direction. Obsolete decorative portfolio topology components and their CSS were deleted. The personal hero portrait was replaced with the newly uploaded green-polo photo whose SHA-256 was matched with the existing original on the Mac; the WebP copy is 960×1280.
+
+### Client-facing UX & ethical marketing
+
+- Six concrete service offerings include scope, typical deliverables and relevant tools.
+- The About page contains user-reported experience and studies, explicitly identifying the unfinished EMSI year.
+- Projects remain design examples rather than fictional completed client contracts.
+- The contact brief is assembled client-side and copied to clipboard. It does not pretend to submit data to a server; real contact channels are Fiverr and LinkedIn.
+- No fabricated pricing, testimonies, business registration, awards or customer counts.
+
+### SEO / privacy controls
+
+- Unique page titles/descriptions, semantic headings, local image alt text, Page metadata and Person/ProfessionalService JSON-LD are present.
+- Private Studio requests are not indexed. The robots/sitemap respect public/private mode and rely on a verified deployment origin for public absolute URLs.
+- Mobile/desktop navigation and client-request path are tested in a real browser; fallback fonts and reduced-motion behavior remain available.
+
+### Local direct GNS3 execution evidence
+
+The GNS3 REST API provides native create/open-project, add builtin/template-device, link-interface and update-node operations. These operations require private mode, same-origin validation and strict input schemas.
+
+An actual native lab called `Taha IT Solutions - Client Network Starter Lab` was created through the Studio API, with one Ethernet Switch and two VPCS nodes connected by two links. Earlier emulator discovery failed until the local GNS3 server was relaunched with the bundled emulator tools on PATH. This was then tested successfully. No virtual appliance was started automatically and no configuration command executed on a device.
+
+### Reproducible checks
+
+- `npm run check`: TypeScript, successful
+- `npm test`: project/test structure and lab-runner tests, successful
+- `npm run audit:local`: Express, project persistence, evidence uploads, SHA-256, GNS3 native projects/templates, origin rejection and malformed action rejection, successful
+- `node scripts/browser-smoke.mjs`: all marketing and engineering routes, local GNS3 Builder and interactive contact UI (with authenticated local CDP browser), verified
+- `npm audit --audit-level=high`: no reported vulnerabilities
+- A full production Next.js build is checked before merging.
+
+**Known limits:** public hosted deployment was not changed here. The optional Linux VM Containerlab runner remains separate from GNS3. Vendor-specific GNS3 console configuration application is not automatic; configuration notes can be downloaded for manual controlled application. A public production URL and a verified Upwork profile URL were not supplied, so none were invented.
