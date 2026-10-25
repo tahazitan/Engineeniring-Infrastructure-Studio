@@ -5,6 +5,7 @@ import './studio-ui.css';
 import './agency.css';
 import './roadmap.css';
 import './project-roadmap.css';
+import './quality-motion.css';
 const site=process.env.NEXT_PUBLIC_SITE_URL;
 export const metadata:Metadata={
  title:{default:'Taha IT Solutions | Remote IT Support, Networks & Systems',template:'%s | Taha IT Solutions'},
