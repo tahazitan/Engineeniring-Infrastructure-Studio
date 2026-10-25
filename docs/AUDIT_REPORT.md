@@ -18,7 +18,7 @@ This report distinguishes verified application capabilities from optional lab in
 | GNS3 connectivity absent from UI | Could not import existing GNS3 projects | Add authenticated read-only local GNS3 v2 integration and support offline `.gns3` import |
 | GNS3 metadata not persisted | Device roles and interface labels lost after Save | Extend Zod schema and topology serialization; verify with API round-trip |
 | Unclear service availability | Users cannot distinguish live services from blueprints | Add live PostgreSQL, object storage and GNS3 status cards with Refresh |
-| Disconnected visual identity / missing platform logos | Weak project navigation and engineering presentation | Rebuild responsive design with user-provided visual direction; use coded 3D, local official brand SVGs, contextual topology previews |
+| Disconnected visual identity / missing platform logos | Weak project navigation and engineering presentation | Rebuild responsive design with user-provided visual direction; use the supplied template design, a user-controlled portrait, local technology SVGs, animated conceptual topologies |
 | No reproducible full-stack local test | Regression risk | Add `npm run audit:local` with temporary project/evidence fixtures and cleanup |
 
 ## Verified checks
@@ -53,3 +53,7 @@ npm audit --audit-level=high
 ```
 
 Keep `.env`, real configurations, any client data and private evidence out of the repository. Never publish Docker volumes or expose GNS3's local authenticated API directly.
+
+## Template-first iteration (October 2026)
+
+Replaced the earlier Three.js and GSAP presentation with a semantic React/CSS recreation of the original user-supplied purple cyber landing page. Added the locally supplied portrait (`TAHAGITHUB.png` resized to WebP), a conceptual animated network overlay and an interactive topology selector populated from existing project models. Removed the obsolete hero-scene component and its Three.js dependencies. No AI image generation was used. Animated topology paths are illustrative and do not represent live packets.

@@ -4,13 +4,13 @@
 
 ```mermaid
 flowchart LR
-    U[Engineer / Browser] --> N[Next.js React UI]
-    N --> T[Three.js 3D Experience]
+    U[Engineer / Browser] --> N[Next.js React Interface]
+    N --> T[Reference-Template CSS / SVG Motion]
     N --> D[React Flow Topology]
     N --> M[Monaco Configuration Editor]
-    N --> A[Next.js API Routes]
+    N --> A[Express / Next.js API]
     A --> P[(PostgreSQL: Projects & Tests)]
-    A --> O[(MinIO: Evidence Artifacts)]
+    A --> O[(RustFS S3: Evidence Artifacts)]
     A --> R[Local SSH Tunnel → Linux VM Lab Runner]\n    R --> L[Containerlab + FRRouting]
     L --> V[verify.sh & command outputs]
     V --> U
@@ -22,10 +22,10 @@ The studio maintains project lifecycle, architecture, configurations and test pl
 
 | Component | Interface | Function |
 | --- | --- | --- |
-| Next.js | 127.0.0.1:3000 | Frontend and project APIs |
+| Express + Next.js | 127.0.0.1:3000 | Template-based frontend and project APIs |
 | PostgreSQL | 127.0.0.1:5434 | Project and evidence metadata |
-| MinIO API | 127.0.0.1:9000 | Evidence objects |
-| MinIO Console | 127.0.0.1:9001 | Local storage administration |
+| S3-compatible RustFS API | 127.0.0.1:9000 | Evidence objects |
+| RustFS Console | 127.0.0.1:9001 | Local storage administration |
 | Linux networking lab | Isolated virtual network | Containerlab, FRRouting and traffic verification |
 
 ## Project lifecycle
@@ -39,7 +39,7 @@ The studio maintains project lifecycle, architecture, configurations and test pl
 Persistence is backed by `projects` and `evidence` SQL tables. The API checks that completed status has passing acceptance tests, checklist completion, and an existing evidence record.
 
 ## Public and private experience
-Private mode exposes Studio, project editing and evidence APIs. Public mode presents the immersive portfolio, with project records filtered to those marked public and verified. Live database credentials and real engineering evidence are stored outside the repository.
+Private mode exposes Studio, project editing and evidence APIs. Public mode presents the template-driven portfolio, with project records filtered to those marked public and verified. Live database credentials and real engineering evidence are stored outside the repository.
 
 ## Future engineering interfaces
 - Scoped local runner for explicit approved Containerlab and Ansible operations.

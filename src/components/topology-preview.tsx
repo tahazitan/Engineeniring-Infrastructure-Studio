@@ -1,21 +1,25 @@
-import {inferKind} from '@/lib/gns3';
 import type {Project} from '@/lib/types';
+import {inferKind} from '@/lib/gns3';
 
 export default function TopologyPreview({project}:{project:Project}){
- const source=project.topology.nodes.slice(0,6);
- const pts=source.map((n,i)=>({id:n.id,label:n.data.label,kind:inferKind(n.data.label,n.data.platform),x:65+(i%3)*125,y:38+Math.floor(i/3)*100}));
- const byId=new Map(pts.map(n=>[n.id,n]));
- return <svg className="topology-preview" viewBox="0 0 380 185" preserveAspectRatio="xMidYMid meet" role="img" aria-label={'Blueprint topology of '+project.title}>
-  <defs><pattern id={'grid-'+project.slug} width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".75" fill="#436483" opacity=".4"/></pattern></defs>
-  <rect width="380" height="185" fill={'url(#grid-'+project.slug+')'}/>
-  {project.topology.edges.map(edge=>{const a=byId.get(edge.source),b=byId.get(edge.target);if(!a||!b)return null;return <g key={edge.id}><path d={'M '+a.x+' '+a.y+' L '+b.x+' '+b.y} fill="none" stroke="#19c9f0" strokeWidth="1.6" strokeDasharray="6 4" opacity=".75"/><circle cx={(a.x+b.x)/2} cy={(a.y+b.y)/2} r="2" fill="#32d2f6"/></g>;})}
-  {pts.map(n=><g key={n.id} transform={'translate('+(n.x-46)+','+(n.y-24)+')'}>
-   <rect x="0" y="0" width="92" height="50" rx="5" fill="#0c283e" stroke={n.kind==='firewall'?'#ff6d8a':'#5abedd'} strokeWidth="1.1"/>
-   <rect x="7" y="8" width="6" height="6" rx="1" fill={n.kind==='firewall'?'#ff6d8a':'#06d4ee'}/>
-   <text x="18" y="13" fill="#94c7db" fontSize="8" fontFamily="monospace">{n.kind.toUpperCase()}</text>
-   <text x="7" y="31" fill="#f1f9fd" fontSize="9" fontWeight="600" fontFamily="system-ui">{n.label.length>16?n.label.slice(0,14)+'…':n.label}</text>
-   <path d="M 7 40 H 85" stroke="#41687d" strokeWidth=".7"/>
-   <circle cx="10" cy="44" r="2" fill="#00ddfb"/><circle cx="18" cy="44" r="2" fill="#9550ff"/>
+ const nodes=project.topology.nodes.slice(0,6).map((node,i)=>({
+  id:node.id,label:node.data.label,
+  kind:inferKind(node.data.label,node.data.platform),
+  x:40+(i%2)*207,y:44+Math.floor(i/2)*60
+ }));
+ const lookup=new Map(nodes.map(n=>[n.id,n]));
+ return <svg className="topology-preview" viewBox="0 0 380 230" role="img" aria-label={'Network topology blueprint for '+project.title} preserveAspectRatio="xMidYMid meet">
+  <rect width="380" height="230" fill="#f2f6fa"/>
+  <defs><pattern id={'dots-'+project.slug} width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#cdd9e3"/></pattern></defs>
+  <rect width="380" height="230" fill={'url(#dots-'+project.slug+')'}/>
+  <g fontFamily="monospace" fontSize="8" fill="#647c8f"><text x="13" y="16">NETWORK SCHEMATIC</text><text x="365" y="16" textAnchor="end">{nodes.length} DEVICES</text></g>
+  {project.topology.edges.map((edge,i)=>{const a=lookup.get(edge.source),b=lookup.get(edge.target);if(!a||!b)return null;return <path key={edge.id||i} d={'M '+(a.x+50)+' '+(a.y+24)+' L '+(b.x+50)+' '+(b.y+24)} fill="none" stroke="#6788a0" strokeWidth="1.7" className="topology-link"/>;})}
+  {nodes.map(n=><g key={n.id}>
+   <rect className="topology-device" x={n.x} y={n.y} width="110" height="47" rx="3" fill="#fff" stroke="#90aec1" strokeWidth="1.4"/>
+   <rect x={n.x} y={n.y} width="4" height="47" fill={n.kind==='firewall'?'#b94167':'#2783a6'}/>
+   <text x={n.x+12} y={n.y+17} fontSize="7.3" fontFamily="monospace" fill="#52728b">{n.kind.toUpperCase()}</text>
+   <text x={n.x+12} y={n.y+32} fontSize="10.5" fontWeight="600" fontFamily="Arial,sans-serif" fill="#132f47">{n.label.length>17?n.label.slice(0,15)+'…':n.label}</text>
   </g>)}
+  <text x="13" y="218" fontSize="8" fontFamily="monospace" fill="#647b8f">PROJECT BLUEPRINT · NOT A LIVE DEPLOYMENT</text>
  </svg>;
 }

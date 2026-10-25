@@ -3,7 +3,7 @@ const known:[RegExp,string][]=[
  [/palo\s*alto/i,'paloalto'],[/forti/i,'fortinet'],[/gns\s*3/i,'gns3'],
  [/wireshark/i,'wireshark'],[/proxmox/i,'proxmox'],[/cisco/i,'cisco'],
  [/postgres/i,'postgresql'],[/kubernetes|k8s/i,'kubernetes'],
- [/node(?:\\.|\\s*)js/i,'nodejs'],[/express/i,'express'],[/next(?:\\.|\\s*)js/i,'nextjs'],
+ [/node(?:\.|\s*)js/i,'nodejs'],[/express/i,'express'],[/next(?:\.|\s*)js/i,'nextjs'],
  [/cloudflare/i,'cloudflare'],[/debian/i,'debian'],[/ubuntu/i,'ubuntu'],
  [/grafana/i,'grafana'],[/ansible/i,'ansible'],[/github/i,'github'],[/git/i,'git'],
  [/docker|containerlab/i,'docker'],[/linux|kvm|frrouting/i,'linux'],

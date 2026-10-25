@@ -1,35 +1,38 @@
-# TAHA INFRASTRUCTURE STUDIO — Brand System
+# Taha Infrastructure Studio — Template-Based Design System
 
-**Identity**: TAHA INFRASTRUCTURE STUDIO  
-**Signature**: DESIGN. DEPLOY. DEFEND.  
-**Author**: Taha Zitane  
-**Specialization**: Infrastructure Engineering · Network Operations · Cybersecurity
+## Source of the visual direction
 
-## Positioning
-A technology-led engineering practice combining infrastructure architecture, hands-on implementation, technical diagnostics and visual communication.
+The frontend is rebuilt from the actual user-supplied **Cyber Monday landing page template**, whose editable Illustrator/EPS source files and JPEG preview are held locally in the user's Downloads directory.
 
-## Voice
-Precise, confident, internationally understandable, practical and concise.
-Use evidence-rich technical language in project case studies and clean editorial storytelling on the public experience.
+This implementation does **not** place the whole reference screenshot behind the website. The layout, typography, borders, buttons, geometric elements and content are recreated as native React/HTML/CSS/SVG components.
 
-## Design language
-- Dark blue-black foundation and premium restrained illumination.
-- Teal/cyan signals for network activity and system connectivity.
-- Warm amber for contrast, critical emphasis and interface feedback.
-- Manrope and DM Mono: bold editorial headlines with technical metadata.
-- Animated 3D infrastructure compositions, informative topology diagrams and real workflows.
-- The immersive portfolio communicates technical identity; the private studio privileges accuracy and operational usability.
+The visible hero uses the user's own local portrait file (`TAHAGITHUB.png`), resized into `public/template/taha-portrait.webp` using ImageMagick without altering the subject. The original couple photo from the commercial template is not published. The coded shapes, typography and geometry follow the user-provided editable `.ai` / `.eps` and JPEG template reference.
 
-## Repository short description
-Immersive 3D infrastructure engineering studio for networking, systems, cybersecurity and reproducible technical labs.
+Moving network paths and diagram accents are coded SVG/CSS animations representing conceptual topology; they are not live packet telemetry.
 
-## Suggested GitHub topics
-`infrastructure-engineering`, `networking`, `cybersecurity`, `nextjs`, `threejs`, `react-three-fiber`, `containerlab`, `devops`, `network-automation`
+## Visual tokens
 
-## Feature architecture
-- Cinematic portfolio and a private project workbench, sharing one visual identity.
-- 12 engineering project blueprints with architecture and test matrices.
-- Interactive React Flow topology diagrams.
-- Monaco configuration editor and JSON export/import.
-- PostgreSQL project persistence and MinIO evidence storage.
-- Docker services, Linux lab scripts and source-controlled runbooks.
+| Token | Usage |
+|---|---|
+| `#7736FF` | Main purple stage / outer background |
+| `#102C43` | Navigation and structural midnight blue |
+| `#263D57` | Hero background tone |
+| `#03CEEF` | Cyan strokes and secondary actions |
+| `#FA3468` | Small chevron accents from the reference |
+| `Poppins` | Interface, nav, paragraphs and section headings |
+| `Press Start 2P` | Hero title, logo signature and counters |
+| `DM Mono` | Network/system metadata |
+
+The typography is loaded through Google Fonts CSS; no local font files are shared.
+
+## Application design
+
+- Landing page: faithful visual structure of the reference, with the user-provided portrait, a fully coded hero, navigation and CTAs
+- Expertise: table-like service rows and authentic technology logos from locally stored SVG files
+- Projects: editable blueprint data summarized as simple technical network schematics, not decorative decorative art
+- Private Studio and workbenches: coordinated navy/purple panels and light engineering topology canvas, preserving live functionality
+- All claims of lab deployment or verification come from stored status/test records, not design decoration
+
+## Platform stack
+
+Next.js, React, TypeScript, Node.js, Express.js, React Flow, Monaco, PostgreSQL, GNS3 REST integration and RustFS S3-compatible object storage. No Three.js, React Three Fiber or GSAP visual dependency is required for this template-based direction.

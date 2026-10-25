@@ -1,0 +1,90 @@
+/* Template-matched motion system: authored in CSS/SVG. No generated visuals. */
+.template-photo{box-shadow:-20px 0 44px rgba(4,35,55,.12)}
+.template-photo img{object-position:50% 31%;animation:portrait-entry 1.2s cubic-bezier(.19,1,.22,1) both}
+.template-photo:after{content:"";position:absolute;inset:45% 0 0;pointer-events:none;background:linear-gradient(to top,rgba(2,18,35,.86),transparent 78%)}
+.template-photo-name{position:absolute;z-index:3;right:27px;bottom:37px;text-align:right;text-shadow:0 2px 10px #031c34;display:grid;gap:6px;pointer-events:none}
+.template-photo-name strong{font:clamp(12px,1.55vw,20px)/1.4 var(--pixel);letter-spacing:.03em}
+.template-photo-name span{font:10px var(--mono);letter-spacing:.11em;color:#c4efff}
+.template-copy>*{animation:template-hero-arrive .7s cubic-bezier(.2,.85,.3,1) backwards}
+.template-copy>:nth-child(1){animation-delay:.07s}
+.template-copy>:nth-child(2){animation-delay:.18s}
+.template-copy>:nth-child(3){animation-delay:.29s}
+.template-copy>:nth-child(4){animation-delay:.39s}
+.template-copy>:nth-child(5){animation-delay:.48s}
+.template-number{animation:template-hero-arrive .9s .36s ease-out both}
+.template-tech-assets .technology-logo{transition:transform .22s,color .22s;animation:template-logo-enter .65s both}
+.template-tech-assets .technology-logo:nth-child(2n){animation-delay:.09s}.template-tech-assets .technology-logo:nth-child(3n){animation-delay:.19s}
+.template-tech-assets .technology-logo:hover{transform:translateY(-4px);color:#fff}
+.template-tech-assets .technology-logo img{width:29px;height:29px;transition:filter .22s}
+.template-tech-assets .technology-logo:hover img{filter:drop-shadow(0 0 7px #02d3f0)}
+.template-service-stack .technology-logo{transition:transform .2s,border-color .2s}
+.template-service-stack .technology-logo:hover{transform:translateY(-2px);border-color:#06caeb}
+.template-service-stack .technology-logo img{width:24px;height:24px}
+.template-decoration path:first-child{animation:template-circuit-dash 15s linear infinite}
+.template-motion-ready [data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}
+.template-motion-ready [data-reveal].is-visible{opacity:1;transform:none}
+.template-project-preview{position:relative}
+.template-project-preview:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:linear-gradient(to bottom,transparent 65%,rgba(4,26,48,.05))}
+.topology-device{transition:stroke .2s,stroke-width .2s}
+.topology-link{stroke-dasharray:8 4;animation:template-topology-flow 12s linear infinite}
+.template-project:hover .topology-link{animation-duration:2.5s;stroke:#19a0c4}
+.template-project:hover .topology-device{stroke:#317fba;stroke-width:2}
+.template-project:hover .technology-logo img{filter:drop-shadow(0 0 5px #00cee9)}
+.hero-network{position:absolute;z-index:5;right:28px;top:27px;width:318px;background:#092c43;border:1px solid #4bbbd3;box-shadow:0 14px 36px rgba(3,19,37,.16);padding:12px 11px 7px;color:#d8f5ff;animation:none;opacity:1;pointer-events:none}
+.hero-network-title{display:flex;align-items:center;gap:6px;justify-content:space-between;font:8px/1.5 var(--mono);letter-spacing:.03em;color:#bce2ed}
+.hero-network-title>span:last-child{color:#67bdce;font-size:7px;margin-left:auto}
+.hero-network-led{display:inline-block;width:6px;height:6px;background:#20e9c0;border-radius:50%;box-shadow:0 0 10px #26e3bd;animation:template-led 2.2s ease-in-out infinite;flex:none}
+.hero-network svg{display:block;width:100%;height:auto}
+.hero-wire{fill:none;stroke:#365b75;stroke-width:2;stroke-linecap:round}
+.hero-packet-line{fill:none;stroke:#19d7ea;stroke-width:2.4;stroke-dasharray:8 200;stroke-linecap:round;animation:template-network-stream 5s linear infinite}
+.hero-packet-line.secondary{stroke:#9a76ff;animation-delay:-2.3s}
+.hero-net-node rect{fill:#173c56;stroke:#96cbd9;stroke-width:1}
+.hero-net-node text{fill:#e1f8ff;font:8px var(--mono)}
+.hero-net-node text.hero-net-value{fill:#fff;font:bold 10px var(--mono)}
+.hero-net-node circle{fill:#19e9ba;animation:template-led 1.9s ease-in-out infinite}
+.hero-net-footnote{font:7px var(--mono);fill:#8eafbe;letter-spacing:.08em}
+.network-showcase{padding:100px max(5.2vw,calc((100vw - 1390px)/2));background:#0e293e}
+.network-showcase-heading{margin-bottom:38px}
+.network-showcase-heading>span{font:11px var(--mono);color:#00d8ef}
+.network-showcase-heading h2{font:clamp(23px,3.15vw,46px)/1.55 var(--pixel);letter-spacing:-.03em;margin:19px 0 10px}
+.network-showcase-heading h2 em{color:#a482ff;font-style:normal}
+.network-showcase-heading p{font-size:13px;line-height:1.8;color:#b3cbd8;max-width:660px;margin:0}
+.network-showcase-app{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(295px,.75fr);gap:17px;align-items:stretch}
+.network-showcase-canvas{background:#f2f6fa;border:1px solid #517a95;overflow:hidden;display:flex;flex-direction:column}
+.network-showcase-toolbar,.network-showcase-canvas-footer{display:flex;gap:15px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:#234b66;color:#e2f2fa;padding:15px 17px;font:10px var(--mono)}
+.network-showcase-toolbar>span:first-child{display:inline-flex;align-items:center;gap:9px;color:#42e2f6}
+.network-showcase-toolbar>span:last-child{color:#a9c9d9}
+.network-showcase-topology{flex:1;min-height:390px;display:grid;place-items:center;padding:18px 24px}
+.network-showcase-topology .topology-preview{height:340px;width:min(100%,600px);max-width:600px;animation:template-hero-arrive .5s ease both;filter:drop-shadow(0 9px 12px rgba(25,45,74,.12))}
+.network-showcase-topology .topology-link{stroke:#537d99;stroke-width:2;animation-duration:6s}
+.network-showcase-canvas-footer{background:#f0f5f9;color:#58758d;border-top:1px solid #c5d4e1;font-size:9px}
+.network-showcase-panel{background:#153b55;border:1px solid #3e6983;padding:25px;display:flex;flex-direction:column}
+.network-showcase-panel-head{display:flex;gap:10px;align-items:center;font:11px var(--mono);color:#0de2f4;border-bottom:1px solid #49718a;padding-bottom:20px;margin-bottom:19px}
+.network-showcase-panel label{font:10px var(--mono);color:#a5c8d7}
+.network-showcase-panel select{width:100%;background:#08283e;border:1px solid #5b7f97;color:#fff;padding:11px 12px;margin-top:9px;font-size:12px;outline:none}
+.network-showcase-panel select:focus{border-color:#00d3ee}
+.network-showcase-meta{font:10px var(--mono);color:#9f83ff;margin-top:27px;letter-spacing:.04em}
+.network-showcase-panel h3{font-size:23px;letter-spacing:-.035em;line-height:1.35;margin:11px 0 5px}
+.network-showcase-panel p{font-size:12px;line-height:1.8;color:#b5d1dc;margin:0}
+.network-showcase-stack{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:25px 0}
+.network-showcase-stack .technology-logo{padding:7px 9px;border:1px solid #476d84;background:#183e56}
+.network-showcase-cta{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#7437fb;color:#fff;padding:15px 16px;font:11px var(--mono);font-weight:600;margin-top:auto}
+.network-showcase-cta:hover{background:#9464ff}
+.network-showcase-note{font:9px/1.65 var(--mono);color:#8fb0c0;margin-top:14px}
+@keyframes template-hero-arrive{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@keyframes template-panel-arrive{from{opacity:0;transform:translate(15px,-4px)}to{opacity:1;transform:none}}
+@keyframes template-logo-enter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+@keyframes template-led{50%{opacity:.35;filter:brightness(.7)}}
+@keyframes portrait-entry{from{opacity:.7;transform:scale(1.05)}to{opacity:1;transform:scale(1)}}
+@keyframes template-topology-flow{to{stroke-dashoffset:-120}}
+@keyframes template-network-stream{to{stroke-dashoffset:-310}}
+@keyframes template-circuit-dash{to{stroke-dashoffset:-150}}
+@media(max-width:1100px){.hero-network{width:250px;right:14px;top:13px}.network-showcase-app{grid-template-columns:1fr}.network-showcase-topology{min-height:340px}}
+@media(max-width:900px){.hero-network{top:auto;bottom:20%;right:15px;width:248px}.template-photo-name{right:15px;bottom:16px}.template-photo-name strong{font-size:11px}.template-photo-name span{font-size:7px}}
+@media(max-width:590px){.hero-network{width:220px;bottom:19%;right:5px;padding:9px}.hero-network-title{font-size:7px}.hero-network-title>span:last-child{display:none}.template-photo-name{bottom:5px;right:10px}.template-photo-name strong{font-size:9px}.template-photo-name span{font-size:6px}.network-showcase{padding:70px 22px}.network-showcase-heading h2{font-size:19px}.network-showcase-topology{min-height:250px;padding:6px}.network-showcase-topology .topology-preview{height:270px}.network-showcase-toolbar,.network-showcase-canvas-footer{padding:12px;font-size:8px}.network-showcase-panel{padding:20px}.template-tech-assets .technology-logo img{width:24px;height:24px}}
+@media(prefers-reduced-motion:reduce){.template-photo img,.template-copy>*,.template-number,.template-tech-assets .technology-logo,.template-decoration path:first-child,.topology-link,.hero-network,.hero-packet-line,.hero-network-led,.hero-net-node circle,.network-showcase-topology .topology-preview{animation:none!important}.template-motion-ready [data-reveal]{opacity:1;transform:none;transition:none}}
+
+/* Make the actual topology diagram the primary visual, not a small icon in a large box. */
+.network-showcase-topology{min-height:480px;height:480px;display:block;padding:0}.network-showcase-topology .topology-preview{width:100%;height:100%;max-width:none;filter:none}.template-number small{font-size:clamp(15px,1.6vw,25px)}
+@media(max-width:590px){.network-showcase-topology{height:300px;min-height:300px}.network-showcase-topology .topology-preview{height:100%}}
+@media(max-width:590px){.hero-network{display:none}.template-photo{width:84%;height:43%}.template-copy>p{overflow-wrap:anywhere}.template-copy{min-width:0}.template-photo-name{right:10px;bottom:10px}.template-number{z-index:3}}

@@ -1,11 +1,11 @@
 <div align="center">
 
 # TAHA INFRASTRUCTURE STUDIO
-### DESIGN. DEPLOY. DEFEND.
+### DESIGN. DEPLOY. VERIFY.
 
 **Network Infrastructure · Systems Engineering · Cybersecurity**
 
-*An immersive engineering studio by Taha Zitane.*
+*A template-led engineering studio by Taha Zitane.*
 
 [Engineering Studio](#engineering-studio) · [Projects](#project-universe) · [Architecture](#platform-architecture) · [Get Started](#local-development)
 
@@ -17,7 +17,7 @@
 
 **Taha Infrastructure Studio** is a unified digital environment for infrastructure architecture, network operations, systems administration, and cybersecurity engineering.
 
-Its design brings together **interactive 3D experiences**, **live technical workspaces**, **reproducible infrastructure projects**, and **structured engineering documentation**—connecting technical vision with hands-on execution.
+Its design brings together **the user-supplied cyber landing-page visual template**, **live technical workspaces**, **reproducible infrastructure projects**, and **structured engineering documentation**—connecting technical vision with hands-on execution.
 
 The platform is designed to evolve into a signature engineering portfolio, where rich visual storytelling meets practical network and systems expertise.
 
@@ -37,12 +37,12 @@ An integrated workspace built around the infrastructure lifecycle:
 
 **ARCHITECT → CONFIGURE → DEPLOY → DIAGNOSE → VERIFY → DOCUMENT**
 
-- **Architecture & Topology Studio:** interactive node/link diagrams and three-dimensional system views.
+- **Architecture & Topology Studio:** interactive node/link diagrams and GNS3 diagram import.
 - **Configuration Workbench:** configuration assets and structured project specifications.
 - **Lab Operations:** Docker, Containerlab and dedicated engineering-lab workflows.
 - **Verification Center:** documented test plans, diagnostic results and acceptance criteria.
 - **Evidence Library:** screenshots, outputs, technical notes and implementation records.
-- **Portfolio Experience:** cinematic 3D interface and editorial project case studies.
+- **Portfolio Experience:** animated HTML/CSS layout based on the original user-supplied template, a local personal portrait, context-aware technology logos and a project-switching topology explorer.
 
 ## Project Universe
 
@@ -68,7 +68,7 @@ Every project is organized around **architecture, technical specifications, conf
 | Layer | Technology |
 |:--|:--|
 | **Experience** | Next.js · React · TypeScript |
-| **3D & Motion** | Three.js · React Three Fiber · Drei · GSAP |
+| **Visual template / Motion** | Poppins · Press Start 2P · CSS transitions · native SVG network animations |
 | **Network Diagrams** | React Flow |
 | **Configuration Editing** | Monaco Editor |
 | **API & Runtime** | Node.js · Express.js · Next.js
@@ -79,7 +79,7 @@ Every project is organized around **architecture, technical specifications, conf
 
 ### Design Direction
 
-The visual language combines **cinematic digital environments**, **precise topology geometry**, **premium technical typography**, **subtle lighting**, and **engineering-grade interface details**.
+The visual language is adapted from the **user-supplied cyber landing page template**: purple outer frame, navy hero, pixel typography, cropped personal portrait, cyan details and topology-driven engineering components.
 
 The engineering environment and the portfolio share a consistent brand identity: one platform for building and presenting technical work.
 
@@ -127,7 +127,7 @@ The 12 project workspaces provide a common architecture/configuration/verificati
 
 ## Integrated design and runtime
 
-The site uses a custom coded visual system informed by the supplied cyber-style landing page reference: violet framing, midnight blue, geometric circuit detail, cyan accents and Press Start 2P headings. Official technology SVGs are served locally from `public/tech/`, with 3D geometry rendered in code using React Three Fiber. No AI-generated artwork is required.
+The site uses a custom coded visual system informed by the supplied cyber-style landing page reference: violet framing, midnight blue, geometric circuit detail, cyan accents and Press Start 2P headings. Official technology SVGs are served locally from `public/tech/`, with a resized portrait asset already present on the owner’s MacBook and CSS/SVG animations for network links. The original unrelated stock-photo crop and Three.js scene were removed; no AI-generated artwork was added.
 
 For the full local stack, the Next.js application runs behind a loopback-only **Express.js** Node server; PostgreSQL holds project state, and **RustFS** provides S3-compatible object storage. GNS3 project topologies can be imported via the authenticated local GNS3 v2 API or `.gns3` file. The runtime status cards in `/studio` report actual integration health.
 
@@ -144,7 +144,7 @@ Run `npm run audit:local` to exercise HTTP routes, project persistence, cross-or
 
 <div align="center">
 
-### BUILT TO ENGINEER. DESIGNED TO EVOLVE.
+### BUILT TO ENGINEER. BUILT FROM YOUR TEMPLATE.
 **TAHA INFRASTRUCTURE STUDIO**
 
 </div>
