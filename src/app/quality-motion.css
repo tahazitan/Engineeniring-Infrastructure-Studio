@@ -1,0 +1,61 @@
+/* Shared visual-quality layer: all public pages and the operational Studio.
+   Native React Flow editor remains fully interactive; decoration never intercepts input. */
+.agency-site{--quality-ring:#54e3ee;--quality-muted:#c7d9e5}
+.agency-site :is(.agency-hero h1,.agency-page-intro h1,.marketing-section-head h2){
+ font-family:var(--font);font-weight:800;letter-spacing:-.048em;line-height:1.14;text-wrap:balance
+}
+.agency-site .agency-hero h1{font-size:clamp(2.5rem,5vw,5.25rem);max-width:820px}
+.agency-site .agency-page-intro h1{font-size:clamp(2.3rem,4.4vw,4.85rem)}
+.agency-site .marketing-section-head h2{font-size:clamp(1.9rem,3vw,3.5rem);line-height:1.22}
+.agency-site :is(.agency-hero-copy>p,.agency-page-intro>p,.marketing-section-head>p,.agency-service-detail p,.agency-bio p,.agency-contact-main>p){
+ font-size:clamp(14px,1.08vw,16px);line-height:1.8;max-width:70ch
+}
+.agency-site :is(.agency-offer-main p,.agency-timeline p,.agency-education p,.agency-steps p,.agency-feature-panel p){
+ font-size:clamp(13px,1vw,15px);line-height:1.76
+}
+.agency-site :is(.agency-hero,.agency-section,.agency-page-intro,.agency-feature-panel,.agency-offer-row){min-width:0}
+.agency-site :is(.agency-btn-primary,.agency-btn-secondary,.agency-offer-action,.agency-intro-actions a,.agency-contact-channels a,.agency-inline-cta){
+ transition:transform .24s cubic-bezier(.2,.75,.3,1),background-color .24s,border-color .24s,box-shadow .24s
+}
+.agency-site :is(.agency-btn-primary,.agency-btn-secondary):is(:hover,:focus-visible){transform:translateY(-2px);box-shadow:0 12px 25px #06152246}
+.agency-site .agency-offer-row:is(:hover,:focus-within){background:#17394f}
+.agency-site .agency-service-detail:is(:hover,:focus-within){border-color:#72b3ca}
+.agency-site .agency-photo-panel img,.agency-site .agency-bio-photo img,.agency-site .agency-about-image img{image-rendering:auto}
+.agency-site .agency-photo-panel{will-change:auto}
+.agency-site :is(a,button,input,select,textarea):focus-visible,
+.studio-shell :is(a,button,input,select,textarea):focus-visible,
+.workbench-shell :is(a,button,input,select,textarea):focus-visible{
+ outline:3px solid #54e3ee;outline-offset:3px
+}
+.agency-site :is(.agency-service-detail,.agency-education-grid article,.agency-timeline article){scroll-margin-top:115px}
+.agency-site .marketing-nav a[aria-current="page"]{color:#61ebfb;text-decoration:underline;text-underline-offset:7px}
+.agency-site .agency-lang a[aria-current="page"]{outline:1px solid #89dce9;outline-offset:3px}
+.studio-dashboard-item{transition:transform .26s ease,box-shadow .26s ease,background-color .26s ease}
+@media(hover:hover) and (pointer:fine){
+ .studio-dashboard-item:hover{transform:translateY(-3px);box-shadow:0 16px 35px #06172544}
+}
+@keyframes quality-entrance{from{opacity:.65;transform:translate3d(0,14px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+.agency-site :is(.agency-hero-copy,.agency-page-intro>h1,.agency-page-intro>p,.agency-section>.marketing-section-head,.agency-bio>div:last-child){animation:quality-entrance .68s cubic-bezier(.2,.8,.2,1) both}
+.agency-site .agency-page-intro>p{animation-delay:.08s}
+@media(max-width:880px){
+ .agency-site .marketing-nav.active{z-index:30;max-height:calc(100dvh - 70px);overflow-y:auto;overscroll-behavior:contain}
+ .agency-site .marketing-nav.active a{min-height:44px;display:flex;align-items:center;width:100%;font-size:14px}
+ .agency-site .agency-offer-row{grid-template-columns:32px minmax(0,1fr) 40px;gap:11px}
+ .agency-site .agency-offer-tech{grid-column:2;grid-row:2}
+ .agency-site .agency-offer-action{grid-column:3;grid-row:1 / span 2}
+}
+@media(max-width:600px){
+ .agency-site .agency-hero h1{font-size:clamp(2rem,8vw,3rem);line-height:1.15;overflow-wrap:anywhere}
+ .agency-site .marketing-section-head h2{font-size:clamp(1.75rem,7vw,2.35rem)}
+ .agency-site .agency-page-intro h1{font-size:clamp(2rem,7.4vw,3rem);overflow-wrap:anywhere}
+ .agency-site .agency-hero-copy>p{max-width:45ch}
+ .agency-site .agency-service-detail-title,.agency-site .agency-contact-channels{min-width:0}
+ .agency-site .agency-btn-primary,.agency-site .agency-btn-secondary{min-height:44px}
+ .agency-site .agency-timeline article{gap:9px}
+ .agency-site .agency-hero-buttons{gap:10px}
+}
+@media(prefers-reduced-motion:reduce){
+ .agency-site :is(.agency-hero-copy,.agency-page-intro>h1,.agency-page-intro>p,.agency-section>.marketing-section-head,.agency-bio>div:last-child){animation:none!important}
+ .agency-site :is(.agency-btn-primary,.agency-btn-secondary,.agency-offer-action,.agency-intro-actions a,.agency-contact-channels a,.agency-inline-cta),.studio-dashboard-item{transition:none!important}
+ .agency-site :is(.agency-btn-primary,.agency-btn-secondary):is(:hover,:focus-visible),.studio-dashboard-item:hover{transform:none!important}
+}
