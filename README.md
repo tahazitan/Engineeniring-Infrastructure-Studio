@@ -76,3 +76,18 @@ Copyright / professional presentation: Taha Zitane. Brand logos remain the prope
 ### Private user design files
 
 The supplied template sources are copied to `.studio-assets/template.ai`, `template.eps` and `template-reference.jpg` on the Mac. **This directory is gitignored and never uploaded to public web hosting or GitHub.** The private local API serves these only to the Studio, and the owner can continue editing the originals in compatible desktop software. Wondershare EdrawMax is installed, but a native EdrawMax programmatic API has not been verified. Its browser workflow uses standard exported image files.
+
+
+## Personal 12-month engineering roadmap and advanced credentials
+
+The **private** `/studio/roadmap` provides a 52-week learning program (3–5 hours/week) with 10 skill tracks: IT foundations, remote IT Support, enterprise networking/CCNA, Windows Server/AD, Linux, Docker/Git/automation, firewalls/VPN/monitoring, SOC/SIEM, ethical pentesting and controlled red-team simulation.
+
+Every month contains weekly tasks, a tangible lab deliverable, explicit acceptance tests and Coursera references. Users can filter by specialization, enter observed lab notes, and change their status. The separate **Advanced Industry Credentials** section includes Cisco CCNP/CCIE paths, RHCSA/RHCE, Microsoft, AWS, Fortinet, Palo Alto, Kubernetes, OffSec, GIAC and selected other issuer credentials. Status and notes persist in the `engineering_roadmap_progress` PostgreSQL table. Progress is **self-reported**; it does not imply a credential was awarded, training completed or a lab verified. Advanced targets generally span multiple years.
+
+The user has Coursera Premium; access to specific courses, specializations and certificates must still be verified within the user's Coursera account. Third-party vendor exam costs and eligibility are not included in Coursera Premium by default. The roadmap provides the course links and the issuing body's portal rather than fabricating eligibility or pricing.
+
+The roadmap API is private: `GET/PATCH /api/studio/roadmap` with a strict typed allowed-ID/status list, Same-Origin update validation, PostgreSQL persistence, and no public exposure. Run `node --env-file=.env scripts/roadmap-audit.mjs` to test API status and a temporary progress roundtrip that cleans itself up.
+
+## Responsive animated brand assets
+
+Technology cards across public services, marketing hero, Studio project lists and training tracks use real locally hosted SVGs. An offline cached **Simple Icons v16.35.0** release supplies original shapes for AnyDesk, Kali Linux, WireGuard, Prometheus, GitLab, Elastic, RustDesk, RustFS, VMware and VirtualBox; the existing Cisco/Fortinet/Palo Alto/GNS3/Proxmox/etc marks are retained. Logo cards render at 43–80px+ depending on placement, and use CSS 3D movement/hover depth (no AI-generated logo images). Vendor names lacking an appropriate authentic local logo use clearly neutral, open-source Lucide pictograms and labels — never a counterfeit trademark. Reduced-motion preferences disable animations.

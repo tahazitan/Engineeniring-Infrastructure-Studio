@@ -43,3 +43,11 @@ CREATE TABLE IF NOT EXISTS lab_runs (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS lab_runs_project_idx ON lab_runs(project_slug, started_at DESC);
+
+-- Personal annual skill development (all statuses are user-entered).
+CREATE TABLE IF NOT EXISTS engineering_roadmap_progress (
+  item_id text PRIMARY KEY,
+  status text NOT NULL DEFAULT 'planned' CHECK(status IN ('planned','in_progress','completed')),
+  notes text NOT NULL DEFAULT '',
+  updated_at timestamptz NOT NULL DEFAULT now()
+);

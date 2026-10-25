@@ -110,3 +110,13 @@ Implemented real EN/FR/AR language routes, local language switching, Arabic RTL 
 The installed Wondershare EdrawMax can export PNG/JPG/SVG files to the Studio's **Design References** tab; original user-provided Illustrator/EPS/JPG template is stored under gitignored local .studio-assets and served only via a loopback/private-mode, whitelisted API. Exported raster designs can be archived with the existing SHA-256 evidence process. **No undocumented EdrawMax API integration is claimed.**
 
 Public marketing deployment and search-engine indexing were not performed; NEXT_PUBLIC_SITE_URL must be configured for verified production URLs. No client testimonials, legal company size, rates or live deployment claims were invented.
+
+
+## Professional brand and engineering learning extension
+
+- Reworked marketing education and experience language in EN, FR and MSA Arabic to present professional expertise rather than an interview-defense narrative. The first engineering-study year remains labelled accurately; no engineering degree is invented.
+- Added animated large vendor marks and neutral technical icon fallbacks with desktop/mobile CSS and reduced-motion support. SVGs are sourced from the existing asset library and the locally cached Simple Icons v16.35.0 npm package.
+- Added the personal **12-month / 52-week roadmap** at `/studio/roadmap` with ten technical study tracks and Coursera course references, month/week filters, lab deliverables, checkpoints and self-entered notes.
+- Added independently categorized industry-credential goals including CCNA, CCNP Enterprise/Security, CCIE, RHCSA/RHCE, Fortinet and Palo Alto security tracks, Microsoft Azure, AWS, CKA/CKS, OSCP/OSEP, GIAC and CISSP. Official issuer links explain variable exam fees, experiences and eligibility; completion is never assumed.
+- Persisted self-reported learning and certification progress using `engineering_roadmap_progress` in PostgreSQL, with a strict private origin-checked API. The temporary automated save/read/delete test verifies persistence without leaving the user's data changed.
+- No live web crawl or latest certification-exam version verification was possible during this local implementation. Always confirm current issuer requirements before registration.

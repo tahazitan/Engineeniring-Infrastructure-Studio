@@ -9,14 +9,14 @@ export const services:Service[]=[
  {id:'security',title:'Infrastructure Security Review',short:'Identify exposed services, strengthen access and improve segmentation.',details:'Authorized configuration review, firewall rule analysis, VPN security, SSH hardening and security-oriented infrastructure practices. Not a certification or guaranteed penetration test.',deliverables:['Scope-based security observations','Prioritized remediation checklist','Practical configuration changes and follow-up'],tools:['Fortinet','Palo Alto','Wazuh','Wireshark'],Icon:ShieldCheck},
 ];
 export const experience=[
- {period:'2025 — Present',role:'Independent IT Support & Infrastructure',company:'Remote freelance practice',summary:'Remote troubleshooting, system and network configuration tasks, VPS administration and technical documentation. Work is project-dependent; personal labs are documented separately.',tags:['Remote Support','Windows / Linux','VPS','Network Diagnostics']},
+ {period:'2025 — Present',role:'Independent IT Support & Infrastructure',company:'Remote freelance practice',summary:'Remote troubleshooting, system and network configuration tasks, VPS administration and technical documentation. Focus on responsive support, structured delivery and actionable technical documentation.',tags:['Remote Support','Windows / Linux','VPS','Network Diagnostics']},
  {period:'Nov 2023 — Jan 2024',role:'Network & User Support Mission',company:'Healthcare software environment (Enova Santé)',summary:'Network-side technical assistance and user support for a healthcare application environment.',tags:['Application Support','Network','Troubleshooting']},
  {period:'2023',role:'Technical Training Support',company:'ETIGA',summary:'Guided practical exercises for trainees in networking and systems administration.',tags:['Practical Labs','Network Fundamentals','Systems']},
  {period:'Apr 2022',role:'IT Technician Internship',company:'Provincial Education Directorate · Chefchaouen',summary:'Hands-on Cisco LAN tasks, physical servers, Windows Server and Active Directory, with workstation and peripheral maintenance.',tags:['Cisco LAN','Windows Server','AD DS','IT Support']},
 ];
 export const education=[
- {year:'2022',title:'Diplôme Technicien Spécialisé — Réseaux Informatiques',school:'OFPPT · ISMO Tétouan',note:'Completed technical diploma focused on network infrastructure and hands-on systems.'},
- {year:'One year',title:'Engineering Studies — First Year',school:'EMSI Tanger',note:'Attended the first year; program not completed. No engineering degree claimed.'},
- {year:'2019–2020',title:'Sciences Physiques',school:'Faculté des Sciences · Université Abdelmalek Essaâdi',note:'One academic year of university study.'},
- {year:'2019',title:'Baccalauréat',school:'Moroccan National Education System',note:'Secondary education qualification.'},
+ {year:'2022',title:'Diplôme Technicien Spécialisé — Réseaux Informatiques',school:'OFPPT · ISMO Tétouan',note:'Specialized technical training in computer networks, systems and infrastructure.'},
+ {year:'Engineering studies',title:'Engineering Studies · First Year',school:'EMSI Tanger',note:'Engineering studies — first-year coursework in systems and technical analysis.'},
+ {year:'2019–2020',title:'Sciences Physiques',school:'Faculté des Sciences · Université Abdelmalek Essaâdi',note:'University studies in physical sciences.'},
+ {year:'2019',title:'Baccalauréat',school:'Moroccan National Education System',note:'Baccalauréat — foundational scientific education.'},
 ];
