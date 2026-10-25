@@ -91,3 +91,11 @@ The roadmap API is private: `GET/PATCH /api/studio/roadmap` with a strict typed 
 ## Responsive animated brand assets
 
 Technology cards across public services, marketing hero, Studio project lists and training tracks use real locally hosted SVGs. An offline cached **Simple Icons v16.35.0** release supplies original shapes for AnyDesk, Kali Linux, WireGuard, Prometheus, GitLab, Elastic, RustDesk, RustFS, VMware and VirtualBox; the existing Cisco/Fortinet/Palo Alto/GNS3/Proxmox/etc marks are retained. Logo cards render at 43–80px+ depending on placement, and use CSS 3D movement/hover depth (no AI-generated logo images). Vendor names lacking an appropriate authentic local logo use clearly neutral, open-source Lucide pictograms and labels — never a counterfeit trademark. Reduced-motion preferences disable animations.
+
+## Twelve-month practical project delivery roadmap
+
+The **private** page at `/studio/projects-roadmap` contains **12 monthly infrastructure training projects with 48 independently tracked stages**. This is separate from the existing 52-week course/certification study plan. Projects cover IT Support and GLPI, Windows Server/Active Directory, Cisco VLAN switching, resilient routed WANs, Linux, firewall/IPsec, Zabbix, Wazuh, Proxmox backup/recovery, Docker/Ansible, authorized pentesting, and a controlled SOC/red/purple team capstone.
+
+Every project contains prerequisites, an architecture description, technology stack (real vendor marks where available), four detailed Learn/Build/Test/Deliver exercises, official reference links, acceptance criteria, and concrete deliverables. Specialization filters expose projects per professional track, and links open existing private Studio project workspaces for GNS3, configuration, verification and evidence. The Stage status and user-written notes are saved in PostgreSQL under `project_step:p01-1` etc. No project is automatically marked complete and the plan never executes configurations.
+
+Test: `node --experimental-strip-types --env-file=.env scripts/projects-roadmap-audit.mts`. The automated audit safely writes and deletes a temporary isolated progress record and skips it if user data already exists.

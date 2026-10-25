@@ -18,7 +18,7 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
 await send('Runtime.enable');await send('Page.enable');await send('Log.enable');
 async function evaluate(expr){const r=await send('Runtime.evaluate',{expression:expr,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(r.exceptionDetails.text);return r.result?.value}
 const slugs=['enterprise-multisite','vlans-intervlan','routing-resilience','vpn-secure-wan','identity-ad','linux-platform','virtualization','observability','security-monitoring','security-hardening','infra-automation','recovery-resilience'];
-const pages=['/','/services','/projects','/about','/contact','/fr','/fr/services','/fr/about','/fr/projects','/fr/contact','/ar','/ar/services','/ar/about','/ar/projects','/ar/contact','/studio','/studio/roadmap',...slugs.map(x=>'/studio/'+x)];
+const pages=['/','/services','/projects','/about','/contact','/fr','/fr/services','/fr/about','/fr/projects','/fr/contact','/ar','/ar/services','/ar/about','/ar/projects','/ar/contact','/studio','/studio/roadmap','/studio/projects-roadmap',...slugs.map(x=>'/studio/'+x)];
 let failed=false;
 for(const path of pages){
  await send('Page.navigate',{url:base+path});await wait(1500);
@@ -36,6 +36,10 @@ await send('Page.navigate',{url:base+'/studio/roadmap'});await wait(2300);
 const oneYear=await evaluate('({title:document.querySelector(".year-roadmap-hero h1")?.innerText,tracks:document.querySelectorAll(".year-track-grid button").length,monthButtons:document.querySelectorAll(".year-month-switcher button").length,weeklyTasks:document.querySelectorAll(".year-week-row").length,courses:document.querySelectorAll(".year-course-list article").length,advanced:document.querySelectorAll(".advanced-cert-entry").length,saveAction:!!document.querySelector(".year-week-actions button")})');
 console.log('ENGINEERING ROADMAP',oneYear);
 if(oneYear.tracks!==11||oneYear.monthButtons!==12||oneYear.weeklyTasks<4||oneYear.courses<10||oneYear.advanced<20||!oneYear.saveAction)failed=true;
+await send('Page.navigate',{url:base+'/studio/projects-roadmap'});await wait(1750);
+const monthly=await evaluate('({title:document.querySelector(".projects-roadmap-hero h1")?.textContent,months:document.querySelectorAll(".projects-month-tabs button").length,phases:document.querySelectorAll(".projects-step").length,sourceLinks:document.querySelectorAll(".projects-materials a").length,linkToStudio:!!document.querySelector(".projects-open-studio"),statusControl:!!document.querySelector(".projects-step-controls select")})');
+console.log('PROJECT BUILD ROADMAP',monthly);
+if(monthly.months!==12||monthly.phases!==4||monthly.sourceLinks<2||!monthly.linkToStudio||!monthly.statusControl)failed=true;
 await send('Page.navigate',{url:base+'/contact'});await wait(1900);
 const contact=await evaluate('({service:document.querySelector("#contact-service")?.options?.length,description:!!document.querySelector("#contact-description"),brief:document.body.innerText.includes("Copy service brief"),links:document.querySelectorAll(".agency-contact-channels a").length})');
 console.log('CONTACT BRIEF',contact);if(!contact.brief||contact.links<2||!contact.description)failed=true;
@@ -60,6 +64,10 @@ if(mobile.scrollWidth>mobile.viewport+2||!mobile.menu||!mobile.portrait)failed=t
 await evaluate('document.querySelector(".marketing-mobile-button")?.click()');await wait(250);
 const mobileOpen=await evaluate('!!document.querySelector(".marketing-nav.active")');
 console.log('MOBILE NAVIGATION',mobileOpen);if(!mobileOpen)failed=true;
+await send('Page.navigate',{url:base+'/studio/projects-roadmap'});await wait(1400);
+const projectMobile=await evaluate('({viewport:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth,hero:Math.round(document.querySelector(".projects-roadmap-hero")?.getBoundingClientRect().width||0),navigation:Math.round(document.querySelector(".projects-roadmap-nav")?.getBoundingClientRect().width||0)})');
+console.log('PROJECT ROADMAP MOBILE',projectMobile);
+if(projectMobile.scroll>projectMobile.viewport+2||projectMobile.hero>projectMobile.viewport+2)failed=true;
 console.log('RUNTIME ERRORS',errors.slice(0,15));
 if(errors.some(x=>/TypeError|Unhandled Runtime|Application error|Cannot read properties/.test(x)))failed=true;
 socket.close();

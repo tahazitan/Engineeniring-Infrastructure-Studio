@@ -24,3 +24,6 @@ docker-compose.yml.audit-backup
 
 # Local production audit builds
 .next-localized-check/
+
+# Isolated Next.js project roadmap production validation
+.next-project-roadmap-check/

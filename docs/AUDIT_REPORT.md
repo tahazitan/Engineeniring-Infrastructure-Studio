@@ -120,3 +120,13 @@ Public marketing deployment and search-engine indexing were not performed; NEXT_
 - Added independently categorized industry-credential goals including CCNA, CCNP Enterprise/Security, CCIE, RHCSA/RHCE, Fortinet and Palo Alto security tracks, Microsoft Azure, AWS, CKA/CKS, OSCP/OSEP, GIAC and CISSP. Official issuer links explain variable exam fees, experiences and eligibility; completion is never assumed.
 - Persisted self-reported learning and certification progress using `engineering_roadmap_progress` in PostgreSQL, with a strict private origin-checked API. The temporary automated save/read/delete test verifies persistence without leaving the user's data changed.
 - No live web crawl or latest certification-exam version verification was possible during this local implementation. Always confirm current issuer requirements before registration.
+
+## Independent project delivery roadmap — October 2026
+
+The private `/studio/projects-roadmap` contains twelve planned monthly project tracks (48 learn/build/test/deliver stages), separated from `/studio/roadmap` (52-week study and industry certification goals). It covers IT Support + GLPI, Windows Server/AD, Cisco switching, multi-site OSPF, Linux administration, firewall/IPsec, Zabbix, Wazuh SIEM, Proxmox/recovery, Git/Docker/Ansible, isolated authorized pentesting and a purple-team capstone.
+
+Each project has prerequisites, equipment/architecture, technology labels, at least two official documentation or learning links, acceptance criteria, deliverables and a corresponding Studio workspace link. Stage progress is stored under `project_step:<id>` in the existing PostgreSQL roadmap-progress table and is strictly checked against 48 known IDs. The isolated test writes one temporary progress record, reads it and deletes it; it does not change existing user progress. GNS3 topology/runtime state and client evidence are not modified by roadmap updates. This is a project **plan**, not proof of completed labs.
+
+The marketing hero is implemented from the supplied purple/navy template direction, using the existing user-supplied real portrait and CSS-only brand/portrait entrance effects. The home label now reads *Service Platform Ecosystem* (localized), without a generic Technologies heading. The user-provided screenshot artwork is not represented as newly generated image content.
+
+Verification commands: `npm run check`, `npm test`, `npm run audit:local`, `node --experimental-strip-types --env-file=.env scripts/projects-roadmap-audit.mts`, and `node scripts/browser-smoke.mjs` with the authorized Chromium CDP debugging profile. An isolated production build was performed using `STUDIO_NEXT_DIST_DIR=.next-project-roadmap-check`; that cache directory is gitignored.

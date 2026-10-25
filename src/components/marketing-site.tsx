@@ -7,7 +7,7 @@ import {projects} from '@/lib/catalog';
 import ContactBrief from './contact-brief';
 import SiteDocumentLanguage from './site-document-language';
 type View='home'|'services'|'about'|'projects'|'contact';
-const tech=['Cisco','Fortinet','Palo Alto','GNS3','Proxmox','Linux','Docker','Wireshark','AnyDesk','Kali Linux','WireGuard','Grafana','GitLab','PostgreSQL'];
+const tech=['Windows Server','Wazuh','AWS','Zabbix','Cisco','Fortinet','Palo Alto','GNS3','Proxmox','Linux','Docker','Wireshark','AnyDesk','Kali Linux','WireGuard','Grafana','GitLab','PostgreSQL'];
 const areas=[
  {tool:'Cisco',label:'Network routing & switching',keys:['VLAN','Routing','WAN','IPsec']},
  {tool:'Linux',label:'Linux & Windows administration',keys:['Linux','Windows Server','Active Directory','Docker']},
@@ -29,12 +29,12 @@ export default function MarketingSite({view='home',studioEnabled=false,lang='en'
     <div className="agency-template-mark" aria-hidden="true"><span>×</span><span>⌄</span></div>
     <div className="agency-hero-copy">
      <span className="agency-overline"><span className="agency-dot"/> {t.topline}</span>
-     <h1 id="agency-hero-title">{t.heroTitle} <em>{t.heroAccent}</em></h1>
+     <h1 id="agency-hero-title" className="agency-hero-reveal">{t.heroTitle} <em>{t.heroAccent}</em></h1>
      <h2>{t.heroLead}</h2><p>{t.heroBody}</p>
      <div className="agency-hero-buttons"><Link className="agency-btn-primary" href={href('/contact')}>{t.heroCta} <ArrowUpRight size={17}/></Link><Link className="agency-btn-secondary" href={href('/services')}>{t.servicesCta} <ArrowRight size={17}/></Link></div>
      <div className="agency-hero-trust">{t.trust.map(x=><span key={x}><CheckCircle2 size={16}/>{x}</span>)}</div>
     </div>
-    <div className="agency-photo-panel"><img src="/template/taha-portrait.webp" alt="Taha Zitane — independent IT infrastructure specialist" fetchPriority="high"/><div className="agency-photo-caption"><strong>TAHA ZITANE</strong><span>IT INFRASTRUCTURE / SUPPORT / NETWORK SECURITY</span></div></div>
+    <div className="agency-photo-panel agency-portrait-motion"><img src="/template/taha-portrait.webp" alt="Taha Zitane — independent IT infrastructure specialist" fetchPriority="high"/><div className="agency-photo-caption"><strong>TAHA ZITANE</strong><span>IT INFRASTRUCTURE / SUPPORT / NETWORK SECURITY</span></div></div>
     <div className="agency-hero-circuit" aria-hidden="true"/>
    </section>
    <div className="agency-platforms"><span>{t.technology}</span><div className="agency-logo-track">{tech.map(name=><TechnologyLogo key={name} name={name} compact/>)}</div></div>

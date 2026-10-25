@@ -56,6 +56,7 @@ export default function YearRoadmap(){
    <div className="year-roadmap-meter"><strong>{progress}%</strong><small>YOUR RECORDED LEARNING PROGRESS</small><div role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label="Self-reported roadmap completion"><span style={{width:progress+'%'}}/></div><p>{52-totalDone} weeks remaining on your personal plan</p></div>
   </section>
   <div className="year-roadmap-notice" role="status">{feedback}</div>
+  <div className="roadmap-dual-nav"><Link href="/studio/projects-roadmap">Build projects alongside this training plan <ArrowUpRight size={16}/></Link></div>
   <section className="year-roadmap-tracks" aria-label="Choose career track"><div className="year-roadmap-section-heading"><span>01 / CAREER TRACKS</span><h2>Choose a specialization</h2><p>Each track includes its own topics, labs, assessment criteria and Coursera resources. Select a track to focus the calendar.</p></div><div className="year-track-grid">
    <button type="button" onClick={()=>chooseTrack('all')} aria-pressed={filter==='all'} className={filter==='all'?'active':''}><span>00</span><strong>COMPLETE ENGINEERING PATH</strong><small>All disciplines · 52-week plan</small></button>
    {roadmapTracks.map((track,index)=><button type="button" key={track.id} aria-pressed={filter===track.id} className={filter===track.id?'active':''} onClick={()=>chooseTrack(track.id)}><span>{String(index+1).padStart(2,'0')}</span><strong>{track.title}</strong><small>{track.months.map(i=>'M'+i).join(' / ')}</small></button>)}

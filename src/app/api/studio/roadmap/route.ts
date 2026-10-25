@@ -3,9 +3,10 @@ import {z} from 'zod';
 import {isPrivate,isSameOrigin,pool} from '@/lib/server';
 import {roadmapWeeks,roadmapCourses} from '@/lib/engineering-roadmap';
 import {advancedCertifications} from '@/lib/advanced-certifications';
+import {projectPhases} from '@/lib/project-roadmap';
 export const runtime='nodejs';export const dynamic='force-dynamic';
 const schema=z.object({
- type:z.enum(['week','course','certification']),
+ type:z.enum(['week','course','certification','project_step']),
  id:z.string().min(1).max(32),
  status:z.enum(['planned','in_progress','completed']),
  notes:z.string().trim().max(1400).default('')
@@ -34,7 +35,7 @@ export async function PATCH(req:Request){
  const result=schema.safeParse(raw);
  if(!result.success)return NextResponse.json({error:'Invalid roadmap entry'},{status:400});
  const value=result.data;
- const valid=value.type==='week'?roadmapWeeks.some(w=>String(w.number)===value.id):value.type==='course'?roadmapCourses.some(c=>c.id===value.id):advancedCertifications.some(c=>c.id===value.id);
+ const valid=value.type==='week'?roadmapWeeks.some(w=>String(w.number)===value.id):value.type==='course'?roadmapCourses.some(c=>c.id===value.id):value.type==='certification'?advancedCertifications.some(c=>c.id===value.id):projectPhases.some(p=>p.id===value.id);
  if(!valid)return NextResponse.json({error:'Unknown roadmap item'},{status:404});
  const itemId=value.type+':'+value.id;
  try{
