@@ -6,9 +6,6 @@ a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}b
 .technology-logo{display:inline-flex;align-items:center;gap:8px;min-width:max-content;font-size:12px;font-weight:600;color:#d9e9f2}
 .technology-logo img{width:25px;height:25px;object-fit:contain}.technology-logo svg{color:#05cfe9}
 .technology-logo.compact{font-size:10px;gap:6px}.technology-logo.compact img{width:18px;height:18px}
-.topology-preview{display:block;width:100%;height:100%}
-.agency-project-visual .topology-link{stroke-dasharray:7 6;animation:topology-outline 15s linear infinite}
-@keyframes topology-outline{to{stroke-dashoffset:-156}}
 @keyframes runtime-rotate{to{transform:rotate(360deg)}}
 .spinning{animation:runtime-rotate 1.5s linear infinite}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.agency-project-visual .topology-link,.spinning{animation:none!important}}

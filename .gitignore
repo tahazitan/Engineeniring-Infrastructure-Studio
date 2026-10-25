@@ -18,3 +18,9 @@ docker-compose.yml.audit-backup
 .next-audit/
 
 .next-agency-audit/
+
+# Proprietary user-supplied design sources (local only)
+.studio-assets/
+
+# Local production audit builds
+.next-localized-check/

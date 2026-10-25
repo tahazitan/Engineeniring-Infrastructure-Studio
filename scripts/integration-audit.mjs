@@ -21,8 +21,8 @@ try{
  check(response.ok&&Array.isArray(body.projects)&&body.projects.length>=12,'Project catalog and database');
  const project=body.projects.find(p=>p.slug==='enterprise-multisite');
  check(Boolean(project),'Existing enterprise project blueprint');
- check(body.projects.every(p=>p.topology.nodes.length>=8&&p.topology.edges.length>=6),'All 12 reference topologies contain real device/link detail');
- check(body.projects.every(p=>p.topology.nodes.some(n=>n.data.platform&&n.data.ip)&&p.topology.edges.some(e=>e.sourcePort&&e.targetPort&&e.linkRole)),'Vendor, example IP, interface and connection type metadata across projects');
+ check(body.projects.filter(p=>p.status==='planned').every(p=>p.topology.nodes.length===0||p.topology.nodes.some(n=>n.data.platform||n.data.ip)),'Planned projects do not display fake device graphs');
+ check(body.projects.every(p=>p.topology.nodes.length===0||p.topology.edges.every(e=>p.topology.nodes.some(n=>n.id===e.source)&&p.topology.nodes.some(n=>n.id===e.target))),'Project references contain only valid connections');
  check(body.projects.every(p=>{const ids=new Set(p.topology.nodes.map(n=>n.id));return p.topology.edges.every(e=>ids.has(e.source)&&ids.has(e.target))}),'Every topology link resolves to existing device nodes');
  const forged=await fetch(base+'/api/projects/'+project.slug,{method:'PUT',headers:{Origin:'https://untrusted.example','Content-Type':'application/json'},body:JSON.stringify(project)});
  check(forged.status===403,'Cross-origin write rejected');
@@ -58,10 +58,14 @@ try{
   const invalid=await fetch(base+'/api/gns3',{method:'POST',headers:{Origin:base,'Content-Type':'application/json'},body:JSON.stringify({action:'invalid'})});
   check(invalid.status===400,'GNS3 actions reject invalid operations');
  }
+ const preview=await fetch(base+'/api/studio/design-assets?asset=preview');
+ check(preview.ok&&preview.headers.get('content-type')?.includes('image/jpeg'),'Original template confined to private Studio source endpoint');
+ const unknownAsset=await fetch(base+'/api/studio/design-assets?asset=other');
+ check(unknownAsset.status===400,'Private source route rejects unknown asset names');
+ const noPublicDemo=await fetch(base+'/examples/taha-network-demo.gns3');
+ check(noPublicDemo.status===404,'Synthetic GNS3 demo removed from public assets');
  const staticLogo=await fetch(base+'/tech/cisco.svg');
  check(staticLogo.ok,'Locally served technology brand assets');
- const sample=await fetch(base+'/examples/taha-network-demo.gns3');
- check(sample.ok,'Downloadable GNS3 diagram example');
  console.log('Local integration audit PASSED.');
 }catch(e){console.error('Local integration audit FAILED:',e.message);process.exitCode=1;}
 finally{

@@ -99,3 +99,14 @@ An actual native lab called `Taha IT Solutions - Client Network Starter Lab` was
 - A full production Next.js build is checked before merging.
 
 **Known limits:** public hosted deployment was not changed here. The optional Linux VM Containerlab runner remains separate from GNS3. Vendor-specific GNS3 console configuration application is not automatic; configuration notes can be downloaded for manual controlled application. A public production URL and a verified Upwork profile URL were not supplied, so none were invented.
+
+
+## Template + localization + Studio working-tools revision
+
+**Supersedes earlier synthetic-topology notes above.** Removed the artificial 8–9-node reference generator, the generated topology preview component and the public demo .gns3 file. Unmodified old four-node starter sketches are hidden only at read time; custom stored network diagrams remain untouched. The public Projects page no longer publishes topology diagrams. The GNS3-native starter lab (three actual native nodes, two links) remains preserved.
+
+Implemented real EN/FR/AR language routes, local language switching, Arabic RTL interface, local vendor brand SVG motion (respects reduced motion), client service rows and translated contact forms. A dynamic studio dashboard summarizes saved checklist status; training/roadmap uses actual project objectives, checklist and acceptance tests, requiring explicit Save.
+
+The installed Wondershare EdrawMax can export PNG/JPG/SVG files to the Studio's **Design References** tab; original user-provided Illustrator/EPS/JPG template is stored under gitignored local .studio-assets and served only via a loopback/private-mode, whitelisted API. Exported raster designs can be archived with the existing SHA-256 evidence process. **No undocumented EdrawMax API integration is claimed.**
+
+Public marketing deployment and search-engine indexing were not performed; NEXT_PUBLIC_SITE_URL must be configured for verified production URLs. No client testimonials, legal company size, rates or live deployment claims were invented.

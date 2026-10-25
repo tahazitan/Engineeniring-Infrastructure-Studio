@@ -1,55 +1,72 @@
 import Link from 'next/link';
-import {ArrowRight,ArrowUpRight,CheckCircle2,Globe2,MonitorCog,Shield,Network,BookOpen,Headset,Mail,BriefcaseBusiness,ExternalLink} from 'lucide-react';
+import {ArrowRight,ArrowUpRight,CheckCircle2,Globe2,Network,MonitorCog,Shield,BookOpen} from 'lucide-react';
 import {MarketingHeader,MarketingFooter,SectionHeading} from './marketing-layout';
 import TechnologyLogo from './technology-logo';
-import {services,experience,education} from '@/lib/marketing-data';
+import {getServices,getExperience,getEducation,copyFor,routeFor,type Locale} from '@/lib/site-i18n';
 import {projects} from '@/lib/catalog';
-import TopologyPreview from './topology-preview';
-type View='home'|'services'|'about'|'projects'|'contact';
-export default function MarketingSite({view='home',studioEnabled=false}:{view?:View;studioEnabled?:boolean}){
- const featured=projects.slice(0,4);
- return <div className="agency-site">
-  <div className="agency-page-frame">
-   <div className="agency-top-label">TAHA IT SOLUTIONS <span>REMOTE IT SERVICES / INFRASTRUCTURE ENGINEERING</span></div>
-   <MarketingHeader studioEnabled={studioEnabled}/>
-   {view==='home'&&<>
-    <section className="agency-hero" aria-labelledby="agency-hero-title">
-     <div className="agency-hero-lines" aria-hidden="true"/>
-     <div className="agency-hero-copy">
-      <span className="agency-overline"><span className="agency-dot"/> NETWORKS / SYSTEMS / TECHNICAL SUPPORT</span>
-      <h1 id="agency-hero-title">IT SOLUTIONS <em>FOR BUSINESS.</em></h1>
-      <h2>Reliable systems. Connected teams. Practical support.</h2>
-      <p>Independent, remote-first IT services for businesses and professionals — from everyday technical support to network configuration, Windows/Linux administration and infrastructure diagnostics.</p>
-      <div className="agency-hero-buttons"><Link className="agency-btn-primary" href="/contact">Discuss your IT needs <ArrowUpRight size={17}/></Link><Link className="agency-btn-secondary" href="/services">Explore services <ArrowRight size={17}/></Link></div>
-      <div className="agency-hero-trust"><span><CheckCircle2 size={16}/> Remote-first</span><span><CheckCircle2 size={16}/> Scoped, documented work</span><span><CheckCircle2 size={16}/> French & English</span></div>
-     </div>
-     <div className="agency-photo-panel"><img src="/template/taha-portrait.webp" alt="Portrait of Taha Zitane, independent IT infrastructure specialist" fetchPriority="high"/><div className="agency-photo-caption"><strong>TAHA ZITANE</strong><span>IT INFRASTRUCTURE / SUPPORT / NETWORK SECURITY</span></div></div>
-     <div className="agency-hero-circuit" aria-hidden="true"/>
-    </section>
-    <div className="agency-platforms"><span>TECHNOLOGY ECOSYSTEM</span><div>{['Cisco','Fortinet','Palo Alto','Linux','Docker','Proxmox','Wireshark','GNS3','PostgreSQL'].map(t=><TechnologyLogo key={t} name={t} compact/>)}</div></div>
-    <section className="agency-section" id="services">
-     <SectionHeading eyebrow="01 / WHAT WE HELP WITH" title="IT SERVICES" highlight="BUILT AROUND YOUR NEEDS." description="Focused technical assistance for business continuity, secure access and infrastructure operations — scoped to your systems and requirements."/>
-     <div className="agency-service-grid">{services.map(({Icon,...s},i)=><article className="agency-service-card" key={s.id}><div className="agency-service-top"><span>{String(i+1).padStart(2,'0')} / SERVICE</span><Icon size={28}/></div><h3>{s.title}</h3><p>{s.short}</p><div className="agency-service-tags">{s.tools.slice(0,3).map(t=><span key={t}>{t}</span>)}</div><Link href={'/services#'+s.id} className="agency-card-link">View service details <ArrowUpRight size={16}/></Link></article>)}</div>
-     <Link href="/contact" className="agency-inline-cta">Have a specific technical problem? Tell us about it <ArrowUpRight size={18}/></Link>
-    </section>
-    <section className="agency-process">
-     <SectionHeading eyebrow="02 / CLIENT WORKFLOW" title="HOW WE" highlight="WORK." description="A clear, client-friendly process to define the task, work safely and leave you with useful documentation."/>
-     <div className="agency-steps">{[['01','Discover','Explain the issue, business context and authorized scope.'],['02','Plan','Agree on priorities, access, expected results and constraints.'],['03','Execute','Troubleshoot or configure within the approved scope.'],['04','Verify','Test the result and share a practical handover.']].map(([num,title,description])=><div key={num}><b>{num}</b><h3>{title}</h3><p>{description}</p></div>)}</div>
-    </section>
-    <section className="agency-section">
-     <SectionHeading eyebrow="03 / ENGINEERING PRACTICE" title="TECHNICAL" highlight="PROJECT STUDIO." description="A separate working environment for network design, GNS3 integration, configurations, diagnostics and evidence. Blueprints are examples, not claims of deployed client networks."/>
-     <div className="agency-feature-panel"><div><span className="agency-kicker">INDEPENDENT ENGINEERING WORKSPACE</span><h3>Architecture and verification, not just presentation.</h3><p>Explore routing, VLANs, VPN, Active Directory, Linux, monitoring and security designs. Inside the private Studio, projects can hold editable topology, configuration notes and actual test evidence.</p><div className="agency-feature-links"><Link href="/projects" className="agency-btn-primary">View project designs <ArrowRight size={16}/></Link>{studioEnabled&&<Link href="/studio" className="agency-btn-secondary">Open local Studio <ArrowUpRight size={16}/></Link>}</div></div><div className="agency-feature-list"><span><Network size={18}/> Vendor-aware topologies</span><span><MonitorCog size={18}/> Configuration workspace</span><span><Shield size={18}/> GNS3 integration</span><span><BookOpen size={18}/> Tests & evidence register</span></div></div>
-    </section>
-    <section className="agency-section agency-about-teaser"><div><SectionHeading eyebrow="04 / THE TECHNICAL LEAD" title="ENGINEER-LED" highlight="SERVICE." description="Technical delivery grounded in networks, systems and operational support."/><p>I'm Taha Zitane, a Morocco-based network and systems technician offering independent IT services and building practical engineering projects. I combine troubleshooting discipline with infrastructure design and documentation.</p><Link href="/about" className="agency-btn-secondary">Experience & education <ArrowRight size={16}/></Link></div><div className="agency-about-image"><img src="/template/taha-portrait.webp" alt="Taha Zitane, IT services technical lead" loading="lazy"/></div></section>
-    <section className="agency-contact-banner"><div><span>READY TO SOLVE THE NEXT IT CHALLENGE?</span><h2>LET’S TALK ABOUT YOUR INFRASTRUCTURE.</h2><p>One-off troubleshooting, project-based configurations or ongoing operational assistance — for direct clients and freelance marketplace projects.</p></div><Link href="/contact" className="agency-btn-primary">Request a service <ArrowUpRight size={18}/></Link></section>
-   </>}
-   {view==='services'&&<><PageIntro eyebrow="CLIENT SOLUTIONS / 01" title="IT SERVICES" description="Remote technical support and engineering services for organizations, teams and independent professionals. Every engagement begins with an agreed scope and clear deliverables."/><section className="agency-section agency-services-page">{services.map(({Icon,...s},i)=><article className="agency-service-detail" key={s.id} id={s.id}><div className="agency-service-detail-title"><span>{String(i+1).padStart(2,'0')}</span><Icon size={32}/><div><h2>{s.title}</h2><p>{s.short}</p></div></div><div className="agency-service-detail-copy"><p>{s.details}</p><h3>Typical deliverables</h3><ul>{s.deliverables.map(t=><li key={t}><CheckCircle2 size={16}/>{t}</li>)}</ul><div className="agency-service-tags">{s.tools.map(t=><span key={t}>{t}</span>)}</div><Link href="/contact" className="agency-btn-secondary">Discuss this service <ArrowUpRight size={16}/></Link></div></article>)}<div className="agency-service-disclaimer">Services are scoped individually. Security testing, account changes and remote access are performed only with the client's explicit authorization. No particular outcome is guaranteed without inspecting the environment.</div></section></>}
-   {view==='about'&&<><PageIntro eyebrow="ABOUT / TECHNICAL BACKGROUND" title="THE ENGINEER" description="Practical infrastructure thinking, diagnostic discipline and transparent, client-oriented communication."/><section className="agency-section agency-bio"><div className="agency-bio-photo"><img src="/template/taha-portrait.webp" alt="Full portrait of Taha Zitane" loading="eager"/></div><div><span className="agency-kicker">TAHA ZITANE</span><h2>Systems, networks and operations.</h2><p>I'm a specialized network technician based in Chefchaouen, Morocco, working across technical support, Windows/Linux administration and infrastructure design with a cybersecurity orientation.</p><p>My goal is to help clients solve concrete technical problems, document the outcome and build reliable infrastructure. Personal lab designs and completed professional assignments are presented separately.</p><div className="agency-bio-tags"><span>Remote IT Support</span><span>Network Engineering</span><span>Systems Administration</span><span>IT Security Operations</span></div><Link href="/contact" className="agency-btn-primary">Work with me <ArrowUpRight size={16}/></Link></div></section><section className="agency-section"><SectionHeading eyebrow="02 / HANDS-ON HISTORY" title="WORK" highlight="EXPERIENCE." description="Technical responsibilities and assignments, distinguished from independent lab practice."/><div className="agency-timeline">{experience.map(e=><article key={e.role}><time>{e.period}</time><div><h3>{e.role}</h3><strong>{e.company}</strong><p>{e.summary}</p><div className="agency-service-tags">{e.tags.map(t=><span key={t}>{t}</span>)}</div></div></article>)}</div></section><section className="agency-section agency-education"><SectionHeading eyebrow="03 / STUDIES & TRAINING" title="EDUCATION" highlight="PATH." description="Qualifications and academic attendance described accurately, without claiming an unfinished degree."/><div className="agency-education-grid">{education.map(e=><article key={e.school}><time>{e.year}</time><h3>{e.title}</h3><strong>{e.school}</strong><p>{e.note}</p></article>)}</div></section></>}
-   {view==='projects'&&<><PageIntro eyebrow="INFRASTRUCTURE LABS / ENGINEERING" title="PROJECT DESIGNS" description="Practical design references for networking, systems, monitoring and security. These diagrams and plans do not imply completed deployments or customer projects."/><section className="agency-section"><div className="agency-project-grid">{projects.map(p=><article key={p.slug} className="agency-project-item"><div className="agency-project-visual"><TopologyPreview project={p} compact/></div><div className="agency-project-copy"><span>{p.domain.toUpperCase()} / DESIGN REFERENCE</span><h2>{p.title}</h2><p>{p.summary}</p><div className="agency-project-meta"><b>{p.topology.nodes.length} devices</b><b>{p.topology.edges.length} links</b></div><div className="agency-service-tags">{p.stack.slice(0,4).map(t=><span key={t}>{t}</span>)}</div>{studioEnabled&&<Link href={'/studio/'+p.slug} className="agency-card-link">Open in Engineering Studio <ArrowUpRight size={16}/></Link>}</div></article>)}</div></section></>}
-   {view==='contact'&&<><PageIntro eyebrow="NEW ENQUIRIES / CONTACT" title="START A CONVERSATION" description="Share the problem, environment and outcome you need. Choose the communication channel that works for you, and agree on scope before providing remote access."/><section className="agency-section agency-contact-page"><div className="agency-contact-main"><h2>Tell me what you need.</h2><p>For quick remote support, infrastructure configurations, VPNs, server administration and monitoring. You can prepare a clear project brief below and share it via Fiverr, LinkedIn or an Upwork contract invitation.</p><ContactBrief/></div><aside className="agency-contact-channels"><h3>Get in touch</h3><a href="https://www.fiverr.com/zitane_taha" rel="noopener noreferrer" target="_blank"><strong>Fiverr</strong><span>Discuss a freelance service or project</span><ArrowUpRight size={19}/></a><a href="https://www.linkedin.com/in/taha-zitane/fr" rel="noopener noreferrer" target="_blank"><strong>LinkedIn</strong><span>Professional contact and partnerships</span><ArrowUpRight size={19}/></a><a href="https://github.com/tahazitan" rel="noopener noreferrer" target="_blank"><strong>GitHub</strong><span>Review engineering source work</span><ArrowUpRight size={19}/></a><div className="agency-contact-context"><Globe2 size={20}/><p>Based in Chefchaouen, Morocco. Remote assignments for local, Francophone and international clients.</p></div></aside></section></>}
-   <MarketingFooter/>
-  </div>
- </div>;
-}
-function PageIntro({eyebrow,title,description}:{eyebrow:string;title:string;description:string}){return <section className="agency-page-intro"><span>{eyebrow}</span><h1>{title}</h1><p>{description}</p><div className="agency-intro-actions"><Link href="/contact">Discuss a project <ArrowUpRight size={15}/></Link><Link href="/">Home / Back <ArrowRight size={15}/></Link></div></section>}
 import ContactBrief from './contact-brief';
+import SiteDocumentLanguage from './site-document-language';
+type View='home'|'services'|'about'|'projects'|'contact';
+const tech=['Cisco','Fortinet','Palo Alto','Linux','Docker','Proxmox','Wireshark','GNS3','PostgreSQL'];
+const areas=[
+ {tool:'Cisco',label:'Network routing & switching',keys:['VLAN','Routing','WAN','IPsec']},
+ {tool:'Linux',label:'Linux & Windows administration',keys:['Linux','Windows Server','Active Directory','Docker']},
+ {tool:'Fortinet',label:'Infrastructure security',keys:['Firewall','VPN','Network segmentation','Logs']},
+ {tool:'Proxmox',label:'Virtualization & monitoring',keys:['Proxmox','Zabbix','Wireshark','Backup']},
+];
+export default function MarketingSite({view='home',studioEnabled=false,lang='en'}:{view?:View;studioEnabled?:boolean;lang?:Locale}){
+ const t=copyFor(lang),services=getServices(lang),experience=getExperience(lang),education=getEducation(lang);
+ const href=(path:string)=>routeFor(lang,path);
+ const ar=lang==='ar';
+ const localeDate=(s:string)=>s==='2025 — Present'?(lang==='fr'?'2025 — Aujourd’hui':ar?'2025 — الآن':s):s==='One year'?(lang==='fr'?'Une année':ar?'سنة واحدة':s):s;
+ return <><SiteDocumentLanguage lang={lang}/><div className={'agency-site agency-localized agency-'+lang} dir={ar?'rtl':'ltr'} lang={lang}>
+ <div className="agency-page-frame">
+  <div className="agency-top-label"><span className="agency-template-brand">TAHA IT SOLUTIONS</span><span>{t.mast}</span></div>
+  <MarketingHeader studioEnabled={studioEnabled} lang={lang}/>
+  {view==='home'&&<>
+   <section className="agency-hero" aria-labelledby="agency-hero-title">
+    <div className="agency-hero-lines" aria-hidden="true"/>
+    <div className="agency-template-mark" aria-hidden="true"><span>×</span><span>⌄</span></div>
+    <div className="agency-hero-copy">
+     <span className="agency-overline"><span className="agency-dot"/> {t.topline}</span>
+     <h1 id="agency-hero-title">{t.heroTitle} <em>{t.heroAccent}</em></h1>
+     <h2>{t.heroLead}</h2><p>{t.heroBody}</p>
+     <div className="agency-hero-buttons"><Link className="agency-btn-primary" href={href('/contact')}>{t.heroCta} <ArrowUpRight size={17}/></Link><Link className="agency-btn-secondary" href={href('/services')}>{t.servicesCta} <ArrowRight size={17}/></Link></div>
+     <div className="agency-hero-trust">{t.trust.map(x=><span key={x}><CheckCircle2 size={16}/>{x}</span>)}</div>
+    </div>
+    <div className="agency-photo-panel"><img src="/template/taha-portrait.webp" alt="Taha Zitane — independent IT infrastructure specialist" fetchPriority="high"/><div className="agency-photo-caption"><strong>TAHA ZITANE</strong><span>IT INFRASTRUCTURE / SUPPORT / NETWORK SECURITY</span></div></div>
+    <div className="agency-hero-circuit" aria-hidden="true"/>
+   </section>
+   <div className="agency-platforms"><span>{t.technology}</span><div className="agency-logo-track">{tech.map(name=><TechnologyLogo key={name} name={name} compact/>)}</div></div>
+   <section className="agency-section" id="services">
+    <SectionHeading eyebrow={t.servicesEyebrow} title={t.servicesTitle} highlight={t.servicesAccent} description={t.servicesDesc}/>
+    <div className="agency-offer-list">{services.map((service,i)=><article className="agency-offer-row" key={service.id}>
+     <div className="agency-offer-num">{String(i+1).padStart(2,'0')}</div>
+     <div className="agency-offer-main"><h3>{service.title}</h3><p>{service.short}</p></div>
+     <div className="agency-offer-tech">{service.tools.slice(0,3).map(name=><TechnologyLogo key={name} name={name} compact/>)}</div>
+     <Link href={href('/services')+'#'+service.id} className="agency-offer-action" aria-label={t.serviceDetail+': '+service.title}><ArrowUpRight size={22}/></Link>
+    </article>)}</div>
+    <Link href={href('/contact')} className="agency-inline-cta">{t.servicesQuestion} {t.servicesAsk} <ArrowUpRight size={18}/></Link>
+   </section>
+   <section className="agency-process">
+    <SectionHeading eyebrow={t.processEyebrow} title={t.processTitle} highlight={t.processAccent} description={t.processDesc}/>
+    <div className="agency-steps">{t.steps.map(([title,description],i)=><div key={title}><b>{String(i+1).padStart(2,'0')}</b><h3>{title}</h3><p>{description}</p></div>)}</div>
+   </section>
+   <section className="agency-section">
+    <SectionHeading eyebrow={t.studioEyebrow} title={t.studioTitle} highlight={t.studioAccent} description={t.studioDesc}/>
+    <div className="agency-feature-panel"><div><span className="agency-kicker">GNS3 / REACT FLOW / POSTGRESQL</span><h3>{t.studioLink}</h3><p>{t.studioBody}</p><div className="agency-feature-links">{studioEnabled&&<Link href="/studio" className="agency-btn-primary">{t.studioLink}<ArrowUpRight size={16}/></Link>}<Link href={href('/projects')} className="agency-btn-secondary">{t.projectLink}<ArrowRight size={16}/></Link></div></div><div className="agency-feature-list">{t.studioFeatures.map((line,i)=>{const Icon=[Network,MonitorCog,Shield,BookOpen][i];return <span key={line}><Icon size={18}/>{line}</span>})}</div></div>
+   </section>
+   <section className="agency-section agency-about-teaser"><div><SectionHeading eyebrow={t.aboutEyebrow} title={t.aboutTitle} highlight={t.aboutAccent} description={t.aboutDesc}/><p>{t.aboutBody}</p><Link href={href('/about')} className="agency-btn-secondary">{t.aboutLink}<ArrowRight size={16}/></Link></div><div className="agency-about-image"><img src="/template/taha-portrait.webp" alt="Taha Zitane" loading="lazy"/></div></section>
+   <section className="agency-contact-banner"><div><span>{t.finalEyebrow}</span><h2>{t.finalTitle}</h2><p>{t.finalBody}</p></div><Link href={href('/contact')} className="agency-btn-primary">{t.finalButton}<ArrowUpRight size={18}/></Link></section>
+  </>}
+  {view==='services'&&<><PageIntro eyebrow={t.servicesEyebrow} title={t.pageService} description={t.pageServiceLead} lang={lang}/><section className="agency-section agency-services-page">{services.map((s,i)=><article className="agency-service-detail" key={s.id} id={s.id}><div className="agency-service-detail-title"><span>{String(i+1).padStart(2,'0')}</span><div><h2>{s.title}</h2><p>{s.short}</p><div className="agency-offer-tech">{s.tools.map(name=><TechnologyLogo key={name} name={name} compact/>)}</div></div></div><div className="agency-service-detail-copy"><p>{s.details}</p><h3>{t.deliverables}</h3><ul>{s.deliverables.map(item=><li key={item}><CheckCircle2 size={16}/>{item}</li>)}</ul><Link href={href('/contact')} className="agency-btn-secondary">{t.discuss}<ArrowUpRight size={16}/></Link></div></article>)}<p className="agency-service-disclaimer">{t.scope}</p></section></>}
+  {view==='about'&&<><PageIntro eyebrow={t.aboutEyebrow} title={t.pageAbout} description={t.pageAboutLead} lang={lang}/><section className="agency-section agency-bio"><div className="agency-bio-photo"><img src="/template/taha-portrait.webp" alt="Portrait of Taha Zitane" loading="eager"/></div><div><span className="agency-kicker">TAHA ZITANE / طه زيطان</span><h2>{t.bioTitle}</h2><p>{t.bioBody}</p><Link href={href('/contact')} className="agency-btn-primary">{t.workCta}<ArrowUpRight size={16}/></Link></div></section><section className="agency-section"><SectionHeading eyebrow="02 / EXPERIENCE" title={t.experience} description={t.experienceLead}/><div className="agency-timeline">{experience.map(e=><article key={e.period+e.role}><time>{localeDate(e.period)}</time><div><h3>{e.role}</h3><strong>{e.company}</strong><p>{e.summary}</p><div className="agency-service-tags">{e.tags.map(tag=><span key={tag}>{tag}</span>)}</div></div></article>)}</div></section><section className="agency-section agency-education"><SectionHeading eyebrow="03 / EDUCATION" title={t.studies} description={t.studiesLead}/><div className="agency-education-grid">{education.map(e=><article key={e.year+e.title}><time>{localeDate(e.year)}</time><h3>{e.title}</h3><strong>{e.school}</strong><p>{e.note}</p></article>)}</div></section></>}
+  {view==='projects'&&<><PageIntro eyebrow={t.studioEyebrow} title={t.pageProjects} description={t.pageProjectsLead} lang={lang}/><section className="agency-section"><SectionHeading eyebrow="01 / IT INFRASTRUCTURE" title={t.technicalFocus} description={t.projectNotice}/><div className="agency-practice-list">{areas.map((area,i)=><article key={area.tool} className="agency-practice-row"><span>{String(i+1).padStart(2,'0')}</span><TechnologyLogo name={area.tool}/><div><h2>{area.label}</h2><p>{area.keys.join(' / ')}</p></div></article>)}</div><div className="agency-practice-footer">{studioEnabled&&<Link className="agency-btn-secondary" href="/studio">{t.openStudio}<ArrowUpRight size={16}/></Link>}</div></section></>}
+  {view==='contact'&&<><PageIntro eyebrow={t.pageContact} title={t.contactTitle} description={t.pageContactLead} lang={lang}/><section className="agency-section agency-contact-page"><div className="agency-contact-main"><h2>{t.contactTitle}</h2><p>{t.contactBody}</p><ContactBrief lang={lang}/></div><aside className="agency-contact-channels"><h3>{t.contactChannels}</h3>{[['Fiverr','https://www.fiverr.com/zitane_taha'],['LinkedIn','https://www.linkedin.com/in/taha-zitane/fr'],['GitHub','https://github.com/tahazitan']].map(([label,url])=><a key={label} href={url} target="_blank" rel="noopener noreferrer"><strong>{label}</strong><span>{label==='GitHub'?'Open source / code':'Professional contact'}</span><ArrowUpRight size={19}/></a>)}<div className="agency-contact-context"><Globe2 size={20}/><p>{t.clientLocation}</p></div></aside></section></>}
+  <MarketingFooter lang={lang}/>
+ </div></div></>;
+}
+function PageIntro({eyebrow,title,description,lang}:{eyebrow:string;title:string;description:string;lang:Locale}){
+ const t=copyFor(lang);
+ return <section className="agency-page-intro"><span>{eyebrow}</span><h1>{title}</h1><p>{description}</p><div className="agency-intro-actions"><Link href={routeFor(lang,'/contact')}>{t.nav[4]}<ArrowUpRight size={15}/></Link><Link href={routeFor(lang,'/')}>{t.nav[0]}<ArrowRight size={15}/></Link></div></section>;
+}

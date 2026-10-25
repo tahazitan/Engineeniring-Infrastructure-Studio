@@ -1,4 +1,3 @@
-import {Network} from 'lucide-react';
 const known:[RegExp,string][]=[
  [/palo\s*alto/i,'paloalto'],[/forti/i,'fortinet'],[/gns\s*3/i,'gns3'],
  [/wireshark/i,'wireshark'],[/proxmox/i,'proxmox'],[/cisco/i,'cisco'],
@@ -12,8 +11,8 @@ export const featuredTechnologies=['Cisco','GNS3','Docker','Linux','Fortinet','P
 export function getLogo(name:string){return known.find(([matcher])=>matcher.test(name))?.[1]||null;}
 export default function TechnologyLogo({name,compact=false}:{name:string;compact?:boolean}){
  const logo=getLogo(name);
- return <span className={'technology-logo'+(compact?' compact':'')} title={name}>
-  {logo?<img src={'/tech/'+logo+'.svg'} alt="" width={compact?19:29} height={compact?19:29} loading="lazy"/>:<Network size={compact?16:22} aria-hidden="true"/>}
+ return <span className={'technology-logo'+(compact?' compact':'')+(logo?' has-vendor':' neutral-text')} title={name}>
+  {logo&&<img src={'/tech/'+logo+'.svg'} alt={name+' brand logo'} width={compact?19:29} height={compact?19:29} loading="lazy"/>}
   <span>{name}</span>
  </span>;
 }

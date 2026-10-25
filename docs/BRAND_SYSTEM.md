@@ -21,13 +21,13 @@ The hero and About pages use the owner's newly uploaded **green-polo portrait**,
 - Press Start 2P: limited signature display lettering
 - DM Mono: engineering labels and metadata
 
-Vendor and platform logos are local assets under `public/tech/`; vendor trademarks belong to their owners. Topology designs stay in **Projects** and the private **Studio**, where they provide real technical context.
+Vendor and platform logos are local assets under `public/tech/`; vendor trademarks belong to their owners. Live topology editing, GNS3 node and link management, and EdrawMax-derived diagram references are kept **inside the private Studio**; the public Projects page is a plain summary of technical domains.
 
 ## Website information architecture
 
 - **Home:** useful service proposition, direct CTA, six offers, four-step client process, actual photo and verified technologies.
 - **Services:** per-service purpose, typical deliverables, supported tools and scope/authorization notes.
-- **Projects:** reference infrastructure designs labelled not yet deployed/verified; link to private Studio only in local private mode.
+- **Projects:** service-related technical domains only, without invented device graphs; link to private Studio only in local private mode.
 - **About:** independent professional background, documented employment chronology and accurate education (including the unfinished EMSI year).
 - **Contact:** service brief composer with copy-to-clipboard and direct Fiverr/LinkedIn links. No fake contact address or unsupported live form.
 
@@ -44,3 +44,9 @@ Schema.org Person and ProfessionalService entries identify the engineer and the 
 - Fiverr username and LinkedIn profile links are user-provided. An unverified Upwork profile URL is intentionally not invented.
 
 Public hosting of the marketing frontend should be separate from the local, authenticated GNS3 development environment.
+
+## Multi-language publishing
+
+English / French / Modern Standard Arabic each have real authored client-facing route content. Arabic sections render right-to-left. Language selection uses `/fr` and `/ar` paths and hreflang/sitemap alternates when a verified public origin is configured. Infrastructure identifiers, product brands and command syntax retain original technical spellings. The private Studio remains English-first for technical command editing; translated marketing copy does not alter stored test-plan terminology.
+
+Original Illustrator/EPS artwork is a **private Studio design reference** under gitignored `.studio-assets/`, not a published or AI-generated website graphic. The public layout is implemented in Next.js/React/CSS from the provided reference.

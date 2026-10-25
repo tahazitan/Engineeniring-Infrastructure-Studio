@@ -46,3 +46,7 @@ npm test
 The integration audit verifies local GNS3 status, projects, templates, CSRF protection and validated request rejection. The live Starter Lab was separately exercised end-to-end through the Studio API with real project/node/link creation. Re-running the general audit does not create or delete native projects.
 
 For Containerlab/FRRouting deployment and remote Linux VMs, refer to [LAB_RUNNER_SETUP.md](LAB_RUNNER_SETUP.md); that runner is a distinct optional execution backend.
+
+### Project progression and external diagramming
+
+The native GNS3 nodes and links are the operational source for the editor. Additional task tracking comes from the Studio Roadmap tab, based on the project checklist and test plan already saved in PostgreSQL. EdrawMax can export static SVG/PNG/JPG diagrams for the private design reference view, but those files are **not** directly converted into GNS3 executable configurations.
