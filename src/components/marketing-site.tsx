@@ -7,7 +7,7 @@ import {projects} from '@/lib/catalog';
 import ContactBrief from './contact-brief';
 import SiteDocumentLanguage from './site-document-language';
 type View='home'|'services'|'about'|'projects'|'contact';
-const tech=['Windows Server','Wazuh','AWS','Zabbix','Cisco','Fortinet','Palo Alto','GNS3','Proxmox','Linux','Docker','Wireshark','AnyDesk','Kali Linux','WireGuard','Grafana','GitLab','PostgreSQL'];
+const tech=['Windows Server','Microsoft','Wazuh','AWS','Zabbix','Cisco','Fortinet','Palo Alto','GNS3','Proxmox','Linux','Docker','Wireshark','AnyDesk','Kali Linux','WireGuard','Grafana','GitLab','PostgreSQL'];
 const areas=[
  {tool:'Cisco',label:'Network routing & switching',keys:['VLAN','Routing','WAN','IPsec']},
  {tool:'Linux',label:'Linux & Windows administration',keys:['Linux','Windows Server','Active Directory','Docker']},
