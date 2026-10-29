@@ -1,8 +1,18 @@
-# Taha IT Solutions
+# Taha Infrastructure Studio & IT Services
 
-**Business-facing IT services website and private Infrastructure Engineering Studio.**
+**Private practical engineering environment for international remote-career preparation, with a secondary independent IT-services presentation.**
 
 The public experience positions Taha Zitane's independent remote IT services for clients in Morocco, Francophone markets and international freelance projects. It follows the purple/navy visual template supplied by the owner, with the owner's actual portrait and locally hosted brand SVGs. It does not fabricate customer testimonials, certifications, business scale or verified deployments.
+
+## Career-first engineering priorities
+
+The private `/studio` workspace now surfaces three focused, job-aligned exercises first: **Windows Server/Active Directory incident recovery**, **Linux remote access and service recovery**, and **Zabbix monitoring triage**. Each links to an existing project workspace with explicit tests and expected evidence. They remain planned until real configurations and tests are executed.
+
+- [Remote career lab scenarios, acceptance tests and evidence publishing gate](docs/REMOTE-CAREER-LABS.md)
+- [Professional portfolio](https://github.com/tahazitan/taha-zitane-portfolio) — recruiter-facing work experience, education and evidence-linked independent labs
+- Target roles: international Remote IT Support, Technical Support, Systems Administration and Infrastructure/Cloud Support; confirm individual employers accept Morocco-based applicants.
+
+The independent business services pages stay available as a secondary professional channel.
 
 ## Business pages
 
